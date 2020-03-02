@@ -1,0 +1,81 @@
+<div class="container">
+
+    <h1 class="mt-3">Conexión</h1>
+
+    <div class="row text-right">
+        <div class="col">
+            <button routerLink="/conexiones" class="btn btn-danger">
+            <i class="fa fa-arrow-left"></i>
+              Regresar
+        </button>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn">
+        <div class="col">
+            <form (ngSubmit)="guardar(f)" #f="ngForm">
+
+                <div class="form-group">
+                    <label>Id</label>
+                    <input type="text" [(ngModel)]="conexion.id" name="id" class="form-control" disabled="disabled" placeholder="Firebase Id">
+                    <small class="form-text text-muted">El Id lo genera el firebase</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <input type="text" [(ngModel)]="conexion.cliente" name="cliente" class="form-control" placeholder="Nombre del cliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rut</label>
+                    <input type="text" (keyup)="cambiaRut($event)" [(ngModel)]="conexion.rut" name="rut" class="form-control" placeholder="ej: 11.111.111-1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>User</label>
+                    <input type="text" [(ngModel)]="conexion.user" name="user" class="form-control" placeholder="ej: CLIENTE" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" [(ngModel)]="conexion.password" name="password" class="form-control" placeholder="ej: 12345678" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Server</label>
+                    <input type="text" [(ngModel)]="conexion.server" name="server" class="form-control" placeholder="ej: cliente.clubgournet.cl" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Port</label>
+                    <input type="number" [(ngModel)]="conexion.port" name="port" class="form-control" placeholder="ej: 12345" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Database</label>
+                    <input type="text" [(ngModel)]="conexion.database" name="database" class="form-control" placeholder="ej: CLIENTE" required>
+                </div>
+
+                <hr>
+                <div *ngIf="admin" class="form group text-center">
+                    <button type="submit" class="btn btn-primary w-25">
+               <i class="fa fa-save"></i> 
+               Guardar          
+              </button>
+                </div>
+                <!-- "COCINACONCE": {
+              "user": "COCINACONCE",
+              "password": "76543169",
+              "server": "cocinaconce.clubgournet.cl",
+              "port": 49805,
+              "database": "COCINACONCE",
+              "options": { "encrypt": false },
+              "rut": "76.543.169-7" -->
+
+
+
+            </form>
+        </div>
+    </div>
+
+</div>

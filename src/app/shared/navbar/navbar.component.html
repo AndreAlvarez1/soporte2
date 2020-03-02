@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Gour-net | Mantenedor</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/conexiones">Conexiones</a>
+            </li>
+
+            <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Conexiones
+                      </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" routerLink="/conexiones">Todas</a>
+                    <a class="dropdown-item" routerLink="/conexion/nueva">Crear Nueva Conexion </a>
+                </div>
+            </li> -->
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/versiones">Versiones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+            </li>
+
+            <li *ngIf="admin" class="nav-item">
+                <a class="nav-link" routerLink="/tokens">Tokens</a>
+            </li>
+
+            <li (click)="cerrarSesion()">
+                <a class="nav-link">
+                    <i class="fas fa-door-open"></i> Cerrar Sesión
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

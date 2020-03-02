@@ -1,0 +1,14 @@
+.arriba {
+    background-color: #EF5A0F;
+    height: 50vh;
+}
+
+.logo {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+}
+
+.logs {
+    padding-top: 50px;
+}
