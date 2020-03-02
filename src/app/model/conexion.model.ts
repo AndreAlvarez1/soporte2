@@ -7,10 +7,11 @@ export class ConexionModel {
     server: string;
     port: number;
     database: string;
-    options: string;
+    options: object;
 
     constructor() {
-        this.options = '{ "encrypt": false, "enableArithAbort": true}';
+        this.options = { encrypt: false,
+                         enableArithAbort: true};
     }
 
 }

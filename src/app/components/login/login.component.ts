@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
     this.conex.getUsuarios()
         .subscribe( resp => {
-          console.log(resp);
           this.usuarios = resp;
           this.loading = false;
     });
@@ -37,8 +36,7 @@ export class LoginComponent implements OnInit {
   validarMail(form) {
     const mailForm = form.controls.mail["value"];
     const usuarioWeb = this.usuarios.find( user => user.mail === mailForm);
-    if (usuarioWeb){
-      console.log('encontré', usuarioWeb);
+    if (usuarioWeb) {
       this.usuario = usuarioWeb;
       this.showPassword = true;
 
@@ -50,7 +48,6 @@ export class LoginComponent implements OnInit {
 
   validarPass(form) {
     const passForm = form.controls.pass["value"];
-    console.log(passForm);
     if (passForm === this.usuario.password) {
       localStorage.setItem('nombre', this.usuario.nombre);
       localStorage.setItem('nivel', this.usuario.nivel.toString() );
