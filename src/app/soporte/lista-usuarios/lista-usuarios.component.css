@@ -1,0 +1,38 @@
+.clientes {
+    margin-bottom: 20px
+}
+
+.clientesHeader {
+    background-color: #3177EF;
+    padding: 10px;
+}
+
+.teamHeader {
+    background-color: #FF0D76;
+    padding: 10px;
+}
+
+.clientesHeader h1,
+.teamHeader h1 {
+    font-style: 3em;
+    font-weight: 700;
+    color: white;
+}
+
+.conectado {
+    padding: 20px 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.conectado p {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.user {
+    display: inline;
+}
+
+.conectados {
+    display: inline;
+}

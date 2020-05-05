@@ -4,6 +4,7 @@ import { ConexionModel } from '../model/conexion.model';
 import { UsuarioModel } from '../model/usuario.model';
 import { VersionModel } from 'src/app/model/version.model';
 import { map } from 'rxjs/operators';
+import { TicketModel } from '../model/ticket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ getDato(dir: string, id: string) {
 borrarDato(dir, id: string) {
   return this.http.delete(`${this.url}/${dir}/${id}.json`);
 }
+
+actualizarTicket(ticket: TicketModel, ruta) {
+  return this.http.put(`${ this.url }/${ruta}.json`, ticket);
+ }
+
 
 /////////////////////////// CONEXIONES  //////////////////////////
 
@@ -169,4 +175,13 @@ crearVersion(version: VersionModel ) {
  getClientes() {
    return  this.http.get('http://apipdv.clubgournet.cl/api/v1/ventasdiarias/empresas');
  }
+
+
+
+ sonido(sonido) {
+  const audio = new Audio();
+  audio.src = `./assets/sounds/${sonido}`;
+  audio.play();
+}
+
 }

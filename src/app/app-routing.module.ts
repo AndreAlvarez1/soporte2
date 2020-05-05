@@ -9,8 +9,12 @@ import { VersionComponent } from './components/version/version.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeComponent } from './components/home/home.component';
+import { ChatComponent } from './soporte/chat/chat.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent},
+  { path: 'home', component: HomeComponent, canActivate: [ AuthGuard]},
   { path: 'conexiones', component: ConexionesComponent, canActivate: [ AuthGuard]},
   { path: 'conexion/:id', component: ConexionComponent, canActivate: [ AuthGuard]},
   { path: 'usuarios', component: UsuariosComponent, canActivate: [ AuthGuard]},
@@ -18,7 +22,7 @@ const routes: Routes = [
   { path: 'versiones', component: VersionesComponent, canActivate: [ AuthGuard]},
   { path: 'version/:id', component: VersionComponent, canActivate: [ AuthGuard]},
   { path: 'tokens' , component: TokensComponent, canActivate: [ AuthGuard]},
-  { path: 'login', component: LoginComponent},
+  { path: 'chat/:sala/:ticket', component: ChatComponent},
   { path: '**', pathMatch: 'full', redirectTo: 'login'}
 ];
 

@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-12 clientes">
+
+
+        <!--TEAM CLIENTES-->
+
+        <div class="row clientesHeader">
+            <h1>Clientes</h1>
+        </div>
+
+        <div *ngFor="let usuario of usuariosActivosObs | async">
+            <div *ngIf="usuario.cliente != 'Gour-net' && usuario.sala != 'sin-sala' " class="row conectado pointer" (click)="irSala(usuario)">
+                <div class="col-12">
+                    <p> {{usuario.nombre}} </p>
+                    <span class="badge badge-primary">{{usuario.sala}} | 
+                        <div *ngFor="let sala of salas" class="conectados">
+                            <div *ngIf="sala.sala === usuario.sala && sala.conectados > 1" class="conectados">
+                                 {{sala.conectados}}
+                            </div>
+                            <div *ngIf="sala.sala === usuario.sala && sala.conectados < 2" class="conectados animated infinite jackInTheBox">
+                                 Esperando
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--TEAM GOURNET-->
+
+        <div class="row teamHeader">
+            <h1>Equipo Gour-net</h1>
+        </div>
+
+        <div *ngFor="let usuario of usuariosActivosObs | async">
+            <div *ngIf="usuario.cliente === 'Gour-net' " class="row conectado">
+                <div class="col-12">
+                    <p> {{usuario.nombre}} </p>
+                    <span class="badge badge-primary">{{usuario.sala}}</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

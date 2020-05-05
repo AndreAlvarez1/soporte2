@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +16,13 @@ import { VersionesComponent } from './components/versiones/versiones.component';
 import { VersionComponent } from './components/version/version.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokensComponent } from './components/tokens/tokens.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { WebsocketService } from './services/websocket.service';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ChatComponent } from './soporte/chat/chat.component';
+import { ListaUsuariosComponent } from './soporte/lista-usuarios/lista-usuarios.component';
+import { MensajesComponent } from './soporte/mensajes/mensajes.component';
 
 
 @NgModule({
@@ -29,7 +37,11 @@ import { FilterPipe } from './pipes/filter.pipe';
     VersionComponent,
     LoginComponent,
     TokensComponent,
-    FilterPipe
+    FilterPipe,
+    HomeComponent,
+    ChatComponent,
+    ListaUsuariosComponent,
+    MensajesComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +49,10 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    WebsocketService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

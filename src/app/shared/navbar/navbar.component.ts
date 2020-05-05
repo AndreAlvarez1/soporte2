@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +11,8 @@ export class NavbarComponent implements OnInit {
 
   admin = false;
 
-  constructor(private router: Router,
-              private auth: AuthService) { }
+  constructor(private auth: AuthService,
+              public ws: WebsocketService) { }
 
   ngOnInit() {
     this.admin = this.auth.esAdmin();
@@ -20,8 +20,8 @@ export class NavbarComponent implements OnInit {
 
 
   cerrarSesion() {
-    this.auth.logout();
-    this.router.navigateByUrl('/login');
+    console.log('cerrar');
+    this.ws.logoutWs();
  }
 
 }

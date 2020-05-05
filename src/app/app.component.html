@@ -1,6 +1,4 @@
-<div *ngIf="!(router.url === '/login')">
-    <app-navbar></app-navbar>
-</div>
+<app-navbar *ngIf="!(router.url === '/login')"></app-navbar>
 <!-- <i class="fa fa-spinner fa-spin fa-5x"></i> -->
 <div class="animated fadeIn">
     <router-outlet></router-outlet>

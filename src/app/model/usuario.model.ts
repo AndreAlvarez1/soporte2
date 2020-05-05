@@ -4,4 +4,11 @@ export class UsuarioModel {
     mail: string;
     password: string;
     nivel: number;
+    cliente: string;
+    sala: string;
+
+    constructor() {
+    }
 }
+
+

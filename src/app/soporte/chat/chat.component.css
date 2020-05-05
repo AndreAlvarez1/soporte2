@@ -1,0 +1,209 @@
+.usuarios {
+    height: calc(100vh - 50px);
+    overflow: scroll;
+}
+
+.header {
+    background-color: #112b39;
+    color: white;
+    padding: 20px;
+}
+
+.header span {
+    font-weight: 700;
+}
+
+.header h3 {
+    font-size: 1.6em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header p {
+    margin: 0;
+}
+
+.titulo {
+    background-color: #3381EB;
+    color: white;
+    padding: 20px;
+}
+
+.titulo h1 {
+    padding-left: 20px;
+}
+
+.cerrar h1 {
+    font-size: 2em;
+    font-weight: 700;
+    padding: 10px;
+}
+
+.notif {
+    color: white;
+    padding: 20px;
+}
+
+.notif i {
+    padding-left: 20px;
+}
+
+.conectados {
+    display: inline;
+}
+
+.conectados li {
+    padding: 20px;
+}
+
+.conectado {
+    padding: 20px;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.conectado p {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.user {
+    display: inline;
+}
+
+#chat-mensajes {
+    height: calc(100vh - 80px);
+    background-image: url(/assets/img/food.jpg);
+    overflow-y: scroll;
+    padding-bottom: 100px;
+}
+
+.cajaTexto {
+    padding: 20px;
+    background-color: #EEF0F1;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+
+.borrar {
+    background-color: #606060;
+    color: white;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.borrar p {
+    margin: 0;
+}
+
+.list-group {
+    max-height: 200px;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+}
+
+.noboton {
+    border: none;
+    background-color: rgba(1, 1, 1, 0);
+}
+
+.burbuja1,
+.burbuja2 {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0 0 20px;
+    border-radius: 0 20px 20px 20px;
+}
+
+.burbuja2 {
+    background-color: #D3FDC5;
+    border-radius: 20px 0 20px 20px;
+    margin: 20px 20px 0 40%;
+}
+
+.burbujas h1 {
+    color: #3381EB;
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
+.burbujas h2 {
+    font-size: 0.8em;
+    font-style: italic;
+    margin: 0;
+}
+
+.burbujas h3 {
+    font-size: 0.8em;
+    text-align: right;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.burbujas h4 {
+    font-size: 0.8em;
+    text-align: right;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.burbujas p {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.ticket {
+    color: white;
+    height: 90vh;
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+.ticket h1 {
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 0.8em;
+}
+
+.ticket p {
+    font-size: 1.5em;
+    line-height: 1em;
+    margin: 20px 0;
+}
+
+.estrella {
+    margin-right: 10px;
+}
+
+@media (min-width: 690px) {
+    .list-group {
+        min-height: calc(100vh - 140px);
+        overflow-y: scroll;
+        padding-bottom: 100px;
+    }
+    .cajaTexto {
+        width: 67%;
+    }
+    .ticket {
+        height: 60vh;
+        padding-top: 100px;
+    }
+    .ticket h1 {
+        font-size: 5em;
+        line-height: 0.8em;
+    }
+    .ticket p {
+        font-size: 2em;
+        line-height: 1em;
+    }
+    .cerrar {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+}

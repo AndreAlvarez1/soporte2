@@ -3,3 +3,15 @@
 * {
     font-family: 'Titillium Web', sans-serif;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.f_black {
+    background-color: black;
+}
+
+.f_pink {
+    background-color: #F3507D;
+}

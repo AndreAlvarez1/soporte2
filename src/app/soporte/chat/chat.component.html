@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-12 col-md-4 usuarios">
+
+        <div class="row header">
+            <div class="col-12">
+                <h3>{{sala}}</h3>
+                <p><span>Tipo Ticket:</span> {{ticket.tipo}}</p>
+                <p><span>Abierto:</span> {{ticket.fecha | date:'dd/MM/yyyy'}} - {{ticket.horaIni}}</p>
+                <p><span>Consulta:</span>{{ticket.consulta}}</p>
+            </div>
+        </div>
+
+
+        <div *ngFor="let persona of conectados" class="row conectado pointer">
+            <div class="col-12">
+                <p> {{persona.nombre}} </p>
+                <span *ngIf="persona.cliente != 'Gour-net'" class="badge badge-primary">{{persona.cliente}} </span>
+                <span *ngIf="persona.cliente ==='Gour-net'" class="badge badge-danger">{{persona.cliente}} </span>
+            </div>
+        </div>
+
+
+        <div *ngIf="conectados.length > 1" class="row cerrar pointer d-none d-md-block animated slideInDown" (click)="solicitarCierre()">
+            <div class="col-12 f_pink text-light text-center">
+                <h1><i class="fas fa-flag-checkered"></i> Solicitar Cerrar Ticket</h1>
+            </div>
+        </div>
+
+        <div *ngIf="conectados.length < 2" class="row cerrar pointer d-none d-md-block animated slideInDown" (click)="cerrarTicket()">
+            <div class="col-12 f_black text-light text-center">
+                <h1><i class="fas fa-flag-checkered"></i> Cerrar Ticket</h1>
+            </div>
+        </div>
+
+    </div>
+
+    <!--=========================================-->
+    <!--=========================================-->
+    <!--            Empieza el chat              -->
+    <!--=========================================-->
+    <!--=========================================-->
+    <div class="col-12 col-md-8" id="chat-mensajes">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div *ngFor="let mensaje of mensajes" class="row burbujas">
+
+                    <div *ngIf="mensaje.de !== user.nombre" class="col-6 burbuja1 shadow animated fadeInRight fast">
+                        <h1>{{mensaje.de | titlecase}}</h1>
+                        <p>{{mensaje.cuerpo}}</p>
+                        <h4>{{mensaje.hora }}</h4>
+                    </div>
+
+                    <div *ngIf="mensaje.de === user.nombre && mensaje.cuerpo != 'CerrarTicket99'" class="col-6 burbuja2 shadow animated fadeInRight fast">
+                        <p>{{mensaje.cuerpo}}</p>
+                        <h4>{{mensaje.hora }}</h4>
+                    </div>
+
+                    <div *ngIf="mensaje.de === user.nombre && mensaje.cuerpo === 'CerrarTicket99' " class="col-6 burbuja2 shadow animated fadeInRight fast">
+                        <p>Solicistaste cerrar el ticket</p>
+                        <h4>{{mensaje.hora }}</h4>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <div class="col-12 cajaTexto">
+                <form class="row" (ngSubmit)="enviar()">
+                    <div class="col-11">
+                        <input type="text" [(ngModel)]="texto" class="form-control" name="texto" placeholder="Mensaje..." autofocus autocomplete="off">
+                    </div>
+                    <div class="col-1">
+                        <button class="noboton" type="submit"><i class="pointer text-primary fas fa-paper-plane fa-2x"></i></button>
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <!--fin chat-->
+    </div>
+</div>
