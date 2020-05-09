@@ -23,7 +23,6 @@ export class TokensComponent implements OnInit {
   }
 
   traerClientes() {
-    console.log('clientes');
     this.conex.getClientes()
         .subscribe( data => {
           this.clientes = data["Data"];

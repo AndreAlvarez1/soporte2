@@ -26,7 +26,6 @@ export class UsuariosComponent implements OnInit {
     this.admin = this.auth.esAdmin();
     this.conex.getUsuarios()
               .subscribe( resp => {
-                console.log(resp);
                 this.usuarios = resp;
                 this.loading = false;
               });

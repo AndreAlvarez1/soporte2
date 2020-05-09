@@ -1,0 +1,44 @@
+<div class="row f_pink encabezado">
+    <div class="col-12 text-light">
+        <h1>Horarios Soporte</h1>
+    </div>
+</div>
+
+<div class="row f_gris">
+    <div class="col-12 col-md-4 lista shadow">
+        <div *ngFor="let dia of horarios" class="row pointer dia" (click)="selectDia(dia)">
+            <div class="col-8">
+                <h1>{{dia.Dia}}</h1>
+                <p><span>Inicio:</span> {{dia.Inicio}}</p>
+                <p><span>Fin:</span> {{dia.Fin}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="admin" class="col-12 col-md-4 f_gris editar">
+
+        <form (ngSubmit)="guardar( f )" #f="ngForm" class="login100-form validate-form flex-sb flex-w ">
+            <h1>Editar</h1>
+            <hr>
+            <h2>{{day.Dia}}</h2>
+            <div class="col-12 form-group">
+                <span *ngIf="f.submitted && f.controls['ini'].errors" class="text-danger animated fadeIn">El titulo es obligatorio </span>
+                <label>Hora Inicio:</label>
+                <input class="form-control" type="time" name="ini" [(ngModel)]="day.Inicio" required placeholder="Hora Ini" required>
+            </div>
+
+            <div class="col-12 form-group">
+                <span *ngIf="f.submitted && f.controls['fin'].errors" class="text-danger animated fadeIn">El titulo es obligatorio </span>
+                <label>Hora Fin:</label>
+                <input class="form-control" type="time" name="fin" [(ngModel)]="day.Fin" required placeholder="Hora Ini" required>
+            </div>
+
+            <div class="col-12 m-t-17">
+                <button class="btn btn-primary btn-block" type="submit">
+                Guardar
+            </button>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+.formulario {
+    padding-top: 20px;
+}
+
+.formulario h1 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #F3507D;
+    padding-left: 20px;
+    line-height: 0.8em;
+}
+
+.header {
+    color: white;
+    padding-top: 40px;
+}
+
+.header h1 {
+    font-size: 3em;
+    line-height: 0.8em;
+    font-weight: 700;
+}
+
+.resultados {
+    height: 100vh;
+    overflow: auto;
+    padding: 20px 0;
+}
+
+.tabla tr {
+    color: white;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+/* ===================== Noticias =====================  */
+
+.informaciones {
+    padding: 20px 40px 20px 20px;
+    height: calc(100vh - 45px);
+    overflow: auto;
+}
+
+.noticia {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+.informaciones h1 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #F3507D;
+    line-height: 0.8em;
+}
+
+.titulo {
+    font-size: 2em;
+    font-weight: 700;
+    color: #5878B0;
+}
+
+.cuerpo {
+    font-size: 2em;
+    font-weight: 700;
+    color: #5878B0;
+}
+
+a {
+    padding-top: 10px;
+    color: #F3507D;
+    display: block;
+}
+
+.noticia h3 {
+    font-size: 0.8em;
+    text-align: right;
+    display: inline;
+}

@@ -13,7 +13,18 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('usuarioM');
+    if ( localStorage.getItem('usuarioM')) {
+     const usuario = { mail: JSON.parse(localStorage.getItem('usuarioM')).mail,
+                        nivel: 0,
+                        nombre: '',
+                        password: '',
+                        id: '',
+                        cliente: '',
+                        sala: ''
+                      };
+
+     localStorage.setItem('usuarioM', JSON.stringify(usuario));
+    }
   }
 
   esAdmin() {

@@ -21,7 +21,6 @@ export class VersionesComponent implements OnInit {
     this.admin = this.auth.esAdmin();
     this.conex.getVersiones()
         .subscribe( data => {
-          console.log(data);
           this.versiones = data;
         });
   }

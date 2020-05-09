@@ -1,4 +1,4 @@
-.arriba {
+/* .arriba {
     background-color: #EF5A0F;
     height: 50vh;
 }
@@ -11,4 +11,61 @@
 
 .logs {
     padding-top: 50px;
+} */
+
+
+/*  */
+
+.izq {
+    height: 50vh;
+    background-image: url(src/assets/img/cilantro.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 20PX;
 }
+
+.logo {
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 20px;
+}
+
+.chef {
+    padding: 20vh 20px 20px 20px;
+}
+
+.der {
+    padding: 10vh 20px 2px;
+}
+
+.der h1 {
+    color: #5878B0;
+    font-size: 4em;
+    font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .logo {
+        width: 50%;
+        margin-left: 25%;
+    }
+}
+
+@media (min-width: 992px) {
+    .izq {
+        height: 100vh;
+    }
+    .logo {
+        width: 80%;
+        margin-left: 10%;
+    }
+    .chef {
+        padding: 40vh 20px 20px 20px;
+    }
+    .der {
+        padding: 35vh 40px 20px;
+    }
+}
+
+@media (min-width: 1200px) {}

@@ -1,14 +1,13 @@
 <div class="row arriba text-rigth">
-    <div class="col-12">
-        <img class="logo" src="./assets/img/logo_cortado.svg">
+    <div class="col-12 col-md-8 izq">
+        <img src="./assets/img/logo2.svg" width="50%" class="chef">
     </div>
-</div>
 
-<div class="row logs">
-
-    <div class="col-10 offset-1 col-md-6 offset-md-3 ">
+    <div class="col-12 col-md-4 der">
         <!-- FORMULARIO WEB -->
-        <div *ngIf="!showPassword" class="animated fadeInLeft">
+
+        <h1>Intranet</h1>
+        <div *ngIf="!showPassword" class="animated fadeIn">
             <form (ngSubmit)="validarMail(f)" #f="ngForm">
                 <input type="email" class="form-control" name="mail" [(ngModel)]="mail" placeholder="Email" minlength="4" required>
 

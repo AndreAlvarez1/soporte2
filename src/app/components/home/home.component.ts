@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ConexionesService } from 'src/app/services/conexiones.service';
+import { NoticiaModel } from 'src/app/model/noticia.model';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-home',
@@ -6,21 +9,68 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  usuario = '';
+  loading = true;
+  usuario = JSON.parse(localStorage.getItem('usuarioM'));
   date = new Date();
   hoy = '';
+  noticias: any[] = [];
+  pasado = this.date.getTime() - 5259500000; // resto 2 meses en milisegundos a la fecha de hoy.
 
-  constructor() {
-    this.usuario = JSON.parse(localStorage.getItem('usuarioM'));
+  constructor( private conex: ConexionesService,
+               private ws: WebsocketService) {
+
     this.formatoFecha();
    }
 
   ngOnInit() {
+    this.traerNoticias();
+    this.escucharNoticias();
+
   }
 
 
-  formatoFecha(){
+  traerNoticias() {
+    this.conex.getDatosFiltrados('Noticias', `orderBy="mm"&startAt=${this.pasado}&endAt=${this.date.getTime()}` )
+    .subscribe( resp => {
+              this.filtrarNoticias(resp);
+    });
+  }
+
+  filtrarNoticias(datos) {
+    this.noticias = [];
+    let contador = 0;
+    for (const noticia of datos) {
+      if ( contador > 9) {
+        return;
+      }
+      if ( noticia.para === this.usuario.nombre || noticia.para === 'gournet') {
+        contador ++;
+        this.noticias.unshift(noticia);
+      }
+
+    }
+    this.loading = false;
+
+
+  }
+
+
+
+  escucharNoticias() {
+    this.ws.listen('noticias').subscribe( resp => {
+       const noticia: NoticiaModel = resp;
+       if (noticia.para === this.usuario.razon || noticia.para === 'todos') {
+         this.traerNoticias();
+       } else {
+         return;
+       }
+    });
+  }
+
+
+
+
+  formatoFecha() {
     const d = this.date.getDay();
     const dd = this.date.getDate();
     const m = this.date.getMonth();

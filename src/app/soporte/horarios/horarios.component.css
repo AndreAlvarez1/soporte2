@@ -1,0 +1,49 @@
+.encabezado {
+    padding: 20px;
+}
+
+.encabezado h1 {
+    font-size: 3em;
+    font-weight: 700;
+}
+
+.dia {
+    padding-left: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+.dia h1 {
+    color: #333A41;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.dia p {
+    margin: 0 10px 0 0;
+    display: inline;
+}
+
+.dia span {
+    font-weight: 700;
+}
+
+.lista {
+    height: calc(100vh - 100px);
+    background-color: white;
+}
+
+.editar h1 {
+    color: #333A41;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.editar h2 {
+    font-size: 2.8;
+    color: #5878B0;
+    font-weight: 700;
+}

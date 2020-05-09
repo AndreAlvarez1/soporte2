@@ -1,23 +1,60 @@
 <div class="row">
-    <div class="col-4 logo">
+
+    <div class="col-12 col-md-4 logo animated slideInLeft">
         <img src="assets/img/teamLogo.svg">
     </div>
 
-    <div class="col-4 noticias shadow">
-        <h1>{{hoy}}</h1>
-        <h2>Bienvenido: {{usuario.nombre}} </h2>
+    <div class="col-12 col-md-4 noticias shadow animated fadeIn">
 
-        <div class="row noticia animated fadeIn ">
+        <h1>{{hoy}}</h1>
+        <h5>Bienvenido: {{usuario.nombre}} </h5>
+
+
+        <div *ngIf="loading" class="row cargando">
+            <div class="col-12 loading text-center">
+                <i class="fas fa-hotdog fa-spin fa-3x"></i>
+                <h3 class="animated infinite pulse">CARGANDO <br> NOTICIAS</h3>
+            </div>
+        </div>
+
+
+        <div *ngIf="!loading && noticias.length > 0" class="row animated fadeIn ">
             <div class="col-12">
-                <h1>Instalación Picha</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur unde nemo repellendus atque animi laboriosam repellat harum laudantium aut voluptate in consequuntur minima vel ratione, aperiam eligendi. Ipsa, alias dolorum.</p>
-                <h5 class="text-right">André Alvarez - 14:00</h5>
+
+                <div *ngFor="let noticia of noticias" class="row noticia">
+                    <div class="col-12">
+                        <img *ngIf="noticia.photo !='' " src="{{noticia.photo}}" width="100%" class="imgNoticia">
+
+                        <h2 class="titulo">{{noticia.titulo}}</h2>
+                        <p> {{noticia.cuerpo}}</p>
+
+                        <a *ngIf="noticia.link !='' " href="{{noticia.link}}">click aqui</a>
+
+                        <div class="text-right">
+                            <span class="badge badge-info">{{noticia.para}}</span>
+                        </div>
+
+                        <div class="fecha text-right">
+                            <h3><i class="far fa-calendar-alt"></i> {{noticia.fecha | date:"dd-MM-yyy"}}</h3>
+                            <h3> - <i class="far fa-clock"></i>{{noticia.fecha | date:"HH:mm"}}</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div *ngIf="!loading && noticias.length < 1" class="row animated fadeIn">
+            <div class="col-12">
+                <p>No hay Noticias</p>
             </div>
         </div>
 
     </div>
 
-    <div class="col-4 conectados">
+    <div class="col-12 col-md-4 conectados animated slideInRight">
         <app-lista-usuarios></app-lista-usuarios>
     </div>
 

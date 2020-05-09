@@ -17,18 +17,24 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   usuarios: UsuarioModel[] = [];
   usuario: UsuarioModel;
+  mail = '';
 
   constructor(private conex: ConexionesService,
               private router: Router,
               private auth: AuthService,
-              private ws: WebsocketService) { }
+              private ws: WebsocketService) {
+
+                if (localStorage.getItem('usuarioM')) {
+                  this.mail =  JSON.parse(localStorage.getItem('usuarioM')).mail;
+                }
+
+               }
 
   ngOnInit() {
     this.auth.logout();
     this.loading = true;
     this.conex.getUsuarios()
         .subscribe( resp => {
-          console.log('usuarios', resp);
           this.usuarios = resp;
           this.loading = false;
     });

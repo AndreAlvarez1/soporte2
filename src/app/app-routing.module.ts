@@ -11,6 +11,9 @@ import { TokensComponent } from './components/tokens/tokens.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './soporte/chat/chat.component';
+import { NoticiasComponent } from './admin/noticias/noticias.component';
+import { NoticiaComponent } from './admin/noticia/noticia.component';
+import { HorariosComponent } from './soporte/horarios/horarios.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -22,12 +25,16 @@ const routes: Routes = [
   { path: 'versiones', component: VersionesComponent, canActivate: [ AuthGuard]},
   { path: 'version/:id', component: VersionComponent, canActivate: [ AuthGuard]},
   { path: 'tokens' , component: TokensComponent, canActivate: [ AuthGuard]},
-  { path: 'chat/:sala/:ticket', component: ChatComponent},
+  { path: 'chat/:sala/:ticket', component: ChatComponent, canActivate: [ AuthGuard]},
+  { path: 'horarios', component: HorariosComponent, canActivate: [ AuthGuard]},
+  { path: 'noticias', component: NoticiasComponent, canActivate: [ AuthGuard]},
+  { path: 'noticia/:id', component: NoticiaComponent, canActivate: [ AuthGuard]},
   { path: '**', pathMatch: 'full', redirectTo: 'login'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

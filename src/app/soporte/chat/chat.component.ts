@@ -5,9 +5,9 @@ import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } fro
 import { ChatService } from 'src/app/services/chat.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
-import Swal from 'sweetalert2';
 import { ConexionesService } from 'src/app/services/conexiones.service';
 import { TicketModel } from 'src/app/model/ticket.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -47,7 +47,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
                 this.sala = this.route.snapshot.paramMap.get('sala');
                 this.id = this.route.snapshot.paramMap.get('ticket');
-                
 
               }
 

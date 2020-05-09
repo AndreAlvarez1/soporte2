@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class WebsocketService {
 
-  private url = 'http://localhost:5000';
+  // private url = 'http://localhost:5000'; // Dev
+  private url = 'http://node.clubgournet.cl:9090'; // Produccion
   private socket;
   public usuario: UsuarioModel;
   public socketStatus = false;
@@ -65,7 +66,7 @@ emit( evento: string, payload?: any, callback?: any  ) {
 /////// FIN SOCKET ON  y EMIT///////
 
 loginWs(usuario) {
-  console.log('LoginWs', usuario);
+  // console.log('LoginWs', usuario);
   this.emit('configurar-usuario', {usuario}, (resp) => {
     console.log('login resp', resp);
   });
@@ -74,12 +75,11 @@ loginWs(usuario) {
 
 logoutWs() {
   const usuario = JSON.parse(localStorage.getItem('usuarioM'));
-  console.log('LOGOUT WS', usuario);
   usuario.nombre = 'sin-nombre';
   usuario.sala = 'sin-sala';
 
   this.emit('configurar-usuario', {usuario}, ( resp: any ) => {
-      console.log('log out', resp);
+      // console.log('log out', resp);
       this.auth.logout();
       this.router.navigateByUrl('/login');
     });
@@ -95,9 +95,10 @@ cargarStorage() {
 
 usersActivos(evento) {
   this.socket.on(evento, resp => {
-    console.log('recibo', evento, resp);
+    // console.log('recibo', evento, resp);
     return resp;
   });
 }
+
 
 }

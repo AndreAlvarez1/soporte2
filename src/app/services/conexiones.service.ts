@@ -12,16 +12,12 @@ import { TicketModel } from '../model/ticket.model';
 export class ConexionesService {
 private url = 'https://mantenedor-77567.firebaseio.com'
 
-  constructor(private http: HttpClient) { }
-
-
-
-
-
+constructor(private http: HttpClient) { }
 
 getDato(dir: string, id: string) {
  return this.http.get(`${this.url}/${dir}/${id}.json`);
 }
+
 
 borrarDato(dir, id: string) {
   return this.http.delete(`${this.url}/${dir}/${id}.json`);
@@ -32,8 +28,48 @@ actualizarTicket(ticket: TicketModel, ruta) {
  }
 
 
-/////////////////////////// CONEXIONES  //////////////////////////
 
+getDatos(ruta) {
+  return this.http.get(`${this.url}/${ruta}.json`)
+            .pipe(
+              map( resp => this.crearArreglo(resp) )
+            );
+}
+
+getDatosFiltrados(ruta, filtro) {
+  return this.http.get(`${this.url}/${ruta}.json?${filtro}`)
+            .pipe(
+              map( resp => this.crearArreglo(resp) )
+            );
+}
+
+private crearArreglo(dato: object) {
+  const arreglo = [];
+  Object.keys(dato).forEach( key => {
+    const elemento = dato[key];
+    elemento.id = key;
+    arreglo.push( elemento );
+  });
+  return arreglo;
+}
+
+
+guardarDato(ruta: string, body: any) {
+  return this.http.post(`${ this.url }/${ ruta }.json`, body)
+             .pipe(
+               map(( resp: any ) => {
+                 body.id = resp.name;
+                 return body;
+               })
+             );
+ }
+
+ actualizarDato(ruta: string, id: string, body: any) {
+  return this.http.put(`${ this.url }/${ruta}/${id}.json`, body);
+ }
+
+
+/////////////////////////// CONEXIONES  //////////////////////////
 getConexiones() {
   return this.http.get(`${this.url}/Conexiones.json`)
             .pipe(
@@ -76,6 +112,11 @@ private crearArregloConexiones(Obj: object) {
   });
   return conexiones;
 }
+
+getNoticias(){
+
+}
+
 
  /////////////////////////// USUARIOS //////////////////////////
 

@@ -49,7 +49,6 @@ cambiaRut(tecla) {
             this.conexion.rut = this.conexion.rut.slice(0, -1);
           }
   }
-  console.log(this.conexion.rut);
 }
 
 

@@ -28,7 +28,6 @@ hoy = new Date();
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.admin = this.auth.esAdmin();
-    console.log(this.hoy);
 
     if ( id !== 'nuevo') {
       this.conex.getDato('Versiones', id)
@@ -48,7 +47,6 @@ hoy = new Date();
     }
 
     this.version.actualizacion = new Date();
-    console.log(this.version);
 
     Swal.fire({
       title: 'Espere',
