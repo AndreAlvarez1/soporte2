@@ -1,0 +1,356 @@
+<!-- <div class="container"> -->
+
+<div class="row animated fadeIn" style="margin:0">
+    <div class="col-12">
+
+        <div class="row cliente">
+
+            <div class="col-8">
+                <h1 (click)="info()">Cliente</h1>
+                <!-- <h2>Facturación Mensual: ${{Total | number:'1.0-0'}}</h2> -->
+                <h2>Facturación Mensual: ${{Total | currency:'CLP'}}</h2>
+                <button routerLink="/clientes" class="btn btn-danger btn-sm ml-1">
+                  <i class="fa fa-arrow-left"></i>
+                    Regresar
+                 </button>
+            </div>
+
+
+            <div *ngIf="id != 'nuevo'" class="col-4 info text-right">
+                <h2>{{cliente.Marca}}
+                    <i *ngIf="cliente.status > 0" class="fas fa-circle text-success"></i>
+                    <i *ngIf="cliente.status < 1" class="fas fa-circle text-danger"></i>
+                    <i class="pointer fas fa-pencil-alt" data-toggle="collapse" href="#formCliente" role="button" aria-expanded="false" aria-controls="collapseExample"></i>
+                </h2>
+                <p>RS: {{cliente.razonsocial}}</p>
+                <p>{{cliente.Rut}}</p>
+                <p>{{cliente.Tel}}</p>
+                <p>{{cliente.email}}</p>
+            </div>
+
+            <div *ngIf="id === 'nuevo'" class="col-4 text-right">
+                <button class="btn btn-success btn-block" data-toggle="collapse" href="#formCliente" role="button" aria-expanded="false" aria-controls="collapseExample">Abrir Formulario</button>
+            </div>
+
+
+            <div class="collapse col-12" id="formCliente">
+                <div class="card card-body">
+                    <form (ngSubmit)="guardar(f)" #f="ngForm">
+
+                        <div class="form-group">
+                            <label>Id</label>
+                            <input type="text" [(ngModel)]="cliente.id" name="id" class="form-control" disabled="disabled" placeholder="Firebase Id">
+                            <small class="form-text text-muted">El Id lo genera el firebase</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" [(ngModel)]="cliente.Marca" name="marca" class="form-control" placeholder="Marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Razón Social</label>
+                            <input type="text" [(ngModel)]="cliente.razonsocial" name="razonsocial" class="form-control" placeholder="Razón social" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rut</label>
+                            <input type="text" [(ngModel)]="cliente.Rut" name="rut" class="form-control" placeholder="ej: 166556789-5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" [(ngModel)]="cliente.Tel" name="tel" class="form-control" placeholder="ej: +569 84292373" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mail</label>
+                            <input type="email" [(ngModel)]="cliente.email" name="email" class="form-control" placeholder="ej: contacto@gour-net.cl" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input type="text" [(ngModel)]="cliente.dir" name="dir" class="form-control" placeholder="ej: dirección" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contacto</label>
+                            <input type="text" [(ngModel)]="cliente.contacto" name="contacto" class="form-control" placeholder="Nombre persona de contacto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Token</label>
+                            <input type="text" [(ngModel)]="cliente.Token" name="token" class="form-control" placeholder="ej: 1234EB" required>
+                        </div>
+
+
+                        <button *ngIf="cliente.status === 0" class="btn btn-primary" (click)="cliente.status = 1">Activar</button>
+                        <button *ngIf="cliente.status === 1" class="btn btn-danger" (click)="cliente.status = 0">Desactivar</button>
+
+                        <hr>
+                        <div *ngIf="admin" class="form group text-center">
+                            <button type="submit" class="btn btn-primary btn-block">
+                              <i class="fa fa-save"></i> 
+                              Guardar          
+                              </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--Fin Cliente -->
+
+
+
+
+        <!-- ================================================================ -->
+        <!-- ================================================================ -->
+        <!-- ================================================================ -->
+        <!-- ========================== LOCALES ============================= -->
+        <!-- ================================================================ -->
+        <!-- ================================================================ -->
+        <!-- ================================================================ -->
+
+        <div class="row">
+            <div class="col-12 col-md-6 locales">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div *ngIf="id === 'nuevo' " class="col-12 col-md-6 licencias">
+                            <p>No hay Locales creados aun</p>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="cliente.Locales" class="col-6">
+                                <h2>Locales <span>( {{cliente.Locales.length}} )</span></h2>
+                            </div>
+
+                            <div class="col-6 text-right pt-1">
+                                <button *ngIf="id !== 'nuevo' " class="btn btn-dark btn-sm" data-toggle="collapse" href="#formLocal" role="button" aria-expanded="false" aria-controls="collapseExample">Agregar Local</button>
+                                <button *ngIf="cliente.Locales" class="btn btn-danger btn-sm ml-1" (click)="alertaBorrarLocal()"> <i class="fa fa-trash"></i></button>
+                            </div>
+
+
+                            <div class="collapse col-12" id="formLocal">
+                                <div class="card card-body">
+                                    <form (ngSubmit)="guardarLocal(f)" #f="ngForm">
+
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" [(ngModel)]="newLocal.name" name="name" class="form-control" placeholder="Nombre del local">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Dirección</label>
+                                            <input type="text" [(ngModel)]="newLocal.dir" name="dir" class="form-control" placeholder="Dirección">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Space Name</label>
+                                            <input type="text" [(ngModel)]="newLocal.namespace" name="namespace" class="form-control" placeholder="nombre para url">
+                                        </div>
+                                        <div *ngIf="admin" class="form group text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                          <i class="fa fa-save"></i> 
+                                          Guardar          
+                                          </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--Fin Header-->
+
+
+
+                        <div *ngIf="cliente.Locales" class="row">
+
+                            <div class="col-12">
+                                <select class="form-control" (change)="selectLocal($event.target.value)">
+                                  <option *ngFor="let f of cliente.Locales">{{f.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <hr>
+                                <form (ngSubmit)="guardarLocal(f)" #f="ngForm">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" [(ngModel)]="local.name" name="name" class="form-control" placeholder="name" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Dir</label>
+                                        <input type="text" [(ngModel)]="local.dir" name="dir" class="form-control" placeholder="Dirección" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Name Space</label>
+                                        <input type="text" [(ngModel)]="local.namespace" name="namespace" class="form-control" placeholder="nombre para la url" required>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <button *ngIf="cliente.Locales" class="btn btn-dark btn-sm pointer" (click)="guardar(f)">Guardar Cambios</button>
+
+            </div>
+            <!--Fin Locales-->
+
+
+
+
+
+            <!-- ================================================================ -->
+            <!-- ================================================================ -->
+            <!-- ================================================================ -->
+            <!-- ===========================LICENCIAS============================ -->
+            <!-- ================================================================ -->
+            <!-- ================================================================ -->
+            <!-- ================================================================ -->
+
+            <div *ngIf="!cliente.Locales" class="col-12 col-md-6 licencias">
+                <p>No hay Locales creados aun</p>
+            </div>
+
+            <div *ngIf="cliente.Locales" class=" col-12 col-md-6 licencias">
+                <div class="row p-2">
+                    <div class="col-6">
+                        <h2>Licencias</h2>
+                    </div>
+                    <div class="col-6 text-right pt-1">
+                        <button class="btn btn-dark btn-sm" data-toggle="collapse" href="#formLicencia" role="button" aria-expanded="false" aria-controls="collapseExample">Agregar Licencia</button>
+                    </div>
+                </div>
+
+                <div class="collapse col-12" id="formLicencia">
+                    <div class="card card-body">
+                        <form (ngSubmit)="guardarLicencia(f)" #f="ngForm">
+
+                            <div class="form-group">
+                                <label>Licencia</label>
+                                <select class="form-control" [(ngModel)]="newLicencia.name" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let g of productos" [value]="g" >{{g}} </option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Moneda</label>
+                                <select class="form-control" [(ngModel)]="newLicencia.moneda" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let g of monedas" [value]="g" >{{g}} </option>
+                            </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" [(ngModel)]="newLicencia.precio" name="precio" class="form-control" placeholder="$100.000">
+                            </div>
+
+                            <div *ngIf="admin" class="form group text-center">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fa fa-save"></i> 
+                                Guardar          
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-hover mt-3 animated fadeIn">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Licencia</th>
+                                <th scope="col">Precio</th>
+                                <th *ngIf="admin"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf=!loading class="animated fadeIn">
+                            <tr *ngFor="let licencia of local.Licencias ; index as i">
+
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{licencia.name | titlecase }}</td>
+                                <td>{{licencia.moneda }} {{licencia.precio }}</td>
+                                <td *ngIf="admin">
+                                    <button class="btn btn-primary m-1" (click)="editarLicencia(licencia)"><i class="fa fa-pen"></i></button>
+                                    <button class="btn btn-danger" (click)="borrarLicencia(licencia, i)"> <i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Fin Licencias-->
+        </div>
+
+
+
+
+        <!-- FIN COLUMNA DERECHA -->
+
+
+
+
+    </div>
+</div>
+<!-- </div> -->
+
+
+
+
+
+<!-- MODAL LICENCIA -->
+
+<div *ngIf="modalLicencia" class="row fondoModif">
+    <div class="col-10 col-md-6 bg-light">
+
+        <div class="row">
+            <div class="col-10">
+                <h1>Licencia</h1>
+            </div>
+            <div class="col-2">
+                <i (click)="modalLicencia=! modalLicencia" class="fas fa-times"></i>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="form-group">
+                    <label>Licencia</label>
+                    <select class="form-control" [(ngModel)]="licencia.name" [ngModelOptions]="{standalone: true}">
+                        <option *ngFor="let g of productos" [value]="g" >{{g}} </option>
+                      </select>
+                </div>
+                <div class="form-group">
+                    <label>Moneda</label>
+                    <select class="form-control" [(ngModel)]="licencia.moneda" [ngModelOptions]="{standalone: true}">
+                      <option *ngFor="let g of monedas" [value]="g" >{{g}} </option>
+                      </select>
+                </div>
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input type="text" [(ngModel)]="licencia.precio" name="precio" class="form-control" placeholder="$100.000">
+                </div>
+
+                <button class="btn btn-block btn-primary" (click)="guardar(f)">Guardar</button>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

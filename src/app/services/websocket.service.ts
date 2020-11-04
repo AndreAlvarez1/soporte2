@@ -4,6 +4,7 @@ import * as io from 'socket.io-client';
 import { UsuarioModel } from '../model/usuario.model';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class WebsocketService {
 
 
   constructor(public auth: AuthService,
-              public router: Router) {
+              public router: Router,
+              private http: HttpClient) {
             this.initSocketsIO();
             this.checkStatus();
             this.cargarStorage();
@@ -69,6 +71,14 @@ loginWs(usuario) {
   // console.log('LoginWs', usuario);
   this.emit('configurar-usuario', {usuario}, (resp) => {
     console.log('login resp', resp);
+    this.router.navigateByUrl('/home');
+  });
+}
+
+actualizarLogin(usuario) {
+  // console.log('LoginWs', usuario);
+  this.emit('configurar-usuario', {usuario}, (resp) => {
+    console.log('login resp', resp);
   });
 }
 
@@ -89,7 +99,7 @@ cargarStorage() {
   if (localStorage.getItem('usuarioM')) {
     const usuario = JSON.parse(localStorage.getItem('usuarioM'));
     // console.log('CargarStorage', usuario);
-    this.loginWs(usuario);
+    // this.loginWs(usuario);
   }
 }
 
@@ -98,6 +108,10 @@ usersActivos(evento) {
     // console.log('recibo', evento, resp);
     return resp;
   });
+}
+
+privado(body) {
+  return this.http.post(this.url + '/mensajes/' + body.id, body );
 }
 
 

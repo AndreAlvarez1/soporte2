@@ -112,7 +112,7 @@ export class NoticiaComponent implements OnInit {
           this.loading = false;
           this.modalClientes = true;
           this.clientes = data["Data"];
-ç        });
+        });
   }
 
   traerTeam() {

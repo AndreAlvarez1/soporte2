@@ -72,7 +72,7 @@
 
 #chat-mensajes {
     height: calc(100vh - 80px);
-    background-image: url(/assets/img/food.jpg);
+    background-image: url(src/assets/img/food.jpg);
     overflow-y: scroll;
     padding-bottom: 100px;
 }
@@ -178,6 +178,26 @@
 
 .estrella {
     margin-right: 10px;
+}
+
+.separador {
+    padding: 20px;
+    background-color: #112b39;
+}
+
+.separador h1 {
+    color: white;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.formPrivado {
+    padding: 30px 20px;
+}
+
+.formPrivado h2 {
+    font-weight: 700;
+    margin-bottom: 0;
 }
 
 @media (min-width: 690px) {

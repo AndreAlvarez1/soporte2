@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.pad20 {
+    padding: 20px;
+}
+
 .f_black {
     background-color: black;
 }
@@ -28,6 +32,26 @@
     background-color: white;
 }
 
+.f_oscuro {
+    background-color: #1B1D27;
+}
+
+.headerTitulo {
+    padding: 20px;
+}
+
+.headerTitulo h1 {
+    color: #5878B0;
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 0.8em;
+}
+
+.buscador {
+    border-top: 2px solid white;
+    padding-top: 10px;
+}
+
 .fondoModif {
     background-color: rgba(0, 5, 46, 0.6);
     position: fixed;
@@ -36,6 +60,10 @@
     height: 100vh;
     width: 100%;
     margin-left: 0;
+}
+
+.botonMargen {
+    margin-top: 31px;
 }
 
 @media (min-width: 768px) {}

@@ -12,10 +12,23 @@
 
 
         <div *ngFor="let persona of conectados" class="row conectado pointer">
-            <div class="col-12">
+            <div class="col-12" (click)="selectPersona(persona)">
                 <p> {{persona.nombre}} </p>
                 <span *ngIf="persona.cliente != 'Gour-net'" class="badge badge-primary">{{persona.cliente}} </span>
                 <span *ngIf="persona.cliente ==='Gour-net'" class="badge badge-danger">{{persona.cliente}} </span>
+            </div>
+        </div>
+
+        <div class="row separador">
+            <div class="col-12 ">
+                <h1>En otras salas</h1>
+            </div>
+        </div>
+
+        <div *ngFor="let otro of otros" class="row conectado pointer">
+            <div class="col-12" (click)="selectPersona(otro)">
+                <p> {{otro.nombre}} </p>
+                <span *ngIf="otro.cliente ==='Gour-net'" class="badge badge-warning">{{otro.sala}} </span>
             </div>
         </div>
 
@@ -83,5 +96,40 @@
 
         </div>
         <!--fin chat-->
+    </div>
+</div>
+
+
+
+<div *ngIf="modalPrivado" class="row fondoModif animated fadeIn">
+    <div class="col-12 col-md-6 offset-md-6 animated slideInRight">
+
+        <div class="row header">
+            <div class="col-8">
+                <h1>Mensaje <br> Privado</h1>
+            </div>
+            <div class="col-4 text-right" (click)="modalPrivado = !modalPrivado">
+                <i class="fa fa-times fa-2x text-light pointer"></i>
+            </div>
+        </div>
+
+        <div class="row f_white formPrivado">
+            <div class="col-12">
+                <h2>Enviar Mensaje a: </h2>
+                <h3>{{persona.nombre}}</h3>
+                <hr>
+
+                <form class="row " (ngSubmit)="enviarPrivado()">
+                    <div class="col-12">
+                        <input type="text" [(ngModel)]="textoPrivado" class="form-control" name="privado" placeholder="Mensaje..." autofocus autocomplete="off">
+                    </div>
+                    <div class="col-12 pointer">
+                        <button class="btn btn-primary btn-block mt-2" type="submit"><i class=" fas fa-paper-plane"></i>Enviar Privado</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
     </div>
 </div>

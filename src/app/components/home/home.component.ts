@@ -3,6 +3,7 @@ import { ConexionesService } from 'src/app/services/conexiones.service';
 import { NoticiaModel } from 'src/app/model/noticia.model';
 import { WebsocketService } from 'src/app/services/websocket.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +16,15 @@ export class HomeComponent implements OnInit {
   hoy = '';
   noticias: any[] = [];
   pasado = this.date.getTime() - 5259500000; // resto 2 meses en milisegundos a la fecha de hoy.
+  indicadores = {
+                bitcoin: 0,
+                uf: 0,
+                dolar: 0,
+                euro: 0,
+                desempleo: 0,
+                cobre:0,
+                imacec:0
+                };
 
   constructor( private conex: ConexionesService,
                private ws: WebsocketService) {
@@ -24,10 +34,26 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.traerNoticias();
+    this.getIndicadores();
     this.escucharNoticias();
 
   }
 
+
+  getIndicadores() {
+    this.conex.apiFinansas()
+        .subscribe( resp => {
+      // this.indicadores = resp;
+      this.indicadores.bitcoin = resp['bitcoin'].valor;
+      this.indicadores.uf = resp['uf'].valor;
+      this.indicadores.dolar = resp['dolar'].valor;
+      this.indicadores.euro = resp['euro'].valor;
+      this.indicadores.desempleo = resp['tasa_desempleo'].valor;
+      this.indicadores.cobre = resp['libra_cobre'].valor;
+      this.indicadores.imacec = resp['imacec'].valor;
+      console.log('indicadores', resp);
+    });
+  }
 
   traerNoticias() {
     this.conex.getDatosFiltrados('Noticias', `orderBy="mm"&startAt=${this.pasado}&endAt=${this.date.getTime()}` )
@@ -54,7 +80,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-
+ 
 
   escucharNoticias() {
     this.ws.listen('noticias').subscribe( resp => {
@@ -152,6 +178,8 @@ mesWord(numero) {
   }
   return mes;
   }
+
+
 
 
 

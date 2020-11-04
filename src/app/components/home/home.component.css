@@ -1,3 +1,13 @@
+.indicadores {
+    background-color: #F3507D;
+}
+
+.indicadores p {
+    color: white;
+    display: inline;
+    margin-left: 15px;
+}
+
 .logo {
     background-color: #EAEAEA;
     height: calc(100vh - 50px);

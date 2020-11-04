@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-12 col-md-5 info">
+        <h1>{{ticket.cliente | titlecase}}</h1>
+        <h2><span>Cliente:</span> {{ticket.persona | titlecase}}</h2>
+        <h2><span>Tipo:</span> {{ticket.tipo}}</h2>
+        <hr>
+        <h3><span>Consulta:</span> {{ticket.consulta | titlecase}}</h3>
+        <h3><span>Fecha:</span> {{ticket.fecha | date:'dd/MM/yyyy'}}</h3>
+        <h3><span>Hora Ticket:</span> {{ticket.horaIni}}</h3>
+        <h3><span>Fin:</span> {{ticket.horaFin }}</h3>
+        <h3><span>Tiempo:</span> {{ticket.tiempo}} mins</h3>
+        <hr>
+        <h3><span>Técnico:</span> {{ticket.tecnico | titlecase}}</h3>
+        <h3><span>Valoración:</span>
+            <i *ngIf="ticket.valoracion === 0" class="far fa-star text-warning"></i>
+            <i *ngIf="ticket.valoracion > 0" class="fas fa-star text-warning"></i>
+            <i *ngIf="ticket.valoracion > 1" class="fas fa-star text-warning"></i>
+            <i *ngIf="ticket.valoracion > 2" class="fas fa-star text-warning"></i>
+            <i *ngIf="ticket.valoracion > 3" class="fas fa-star text-warning"></i>
+            <i *ngIf="ticket.valoracion > 4" class="fas fa-star text-warning"></i>
+        </h3>
+        <h3><span>Tiempo:</span> {{ticket.tiempo}}</h3>
+        <hr>
+        <h3><span>Cerrado por:</span> {{ticket.cerrado}}</h3>
+        <p> <span>Id:</span> {{id}}</p>
+
+        <button class="btn btn-outline-dark mr-2" routerLink="/soporte/tickets">Volver</button>
+        <button class="btn btn-outline-dark" (click)="modalEditar = !modalEditar">Editar</button>
+    </div>
+
+    <div class="col-12 col-md-7 chat shadow">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>-------- {{ticket.fecha}} -------- </p>
+            </div>
+        </div>
+
+        <div *ngFor="let mensaje of ticket.historial" class="row burbujas">
+
+            <div *ngIf="mensaje.cliente !== 'Gour-net' " class="col-5 cliente">
+                <p><span>{{mensaje.de}}</span></p>
+                <p>{{mensaje.cuerpo}}</p>
+                <h5>{{mensaje.hora}}</h5>
+            </div>
+
+            <div *ngIf="mensaje.cliente === 'Gour-net'" class=" col-5 offset-6 gournet">
+                <p><span>{{mensaje.de}}</span></p>
+                <p>{{mensaje.cuerpo}}</p>
+                <h5>{{mensaje.hora}}</h5>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+
+</div>
+
+
+
+<div *ngIf="modalEditar" class="row fondoModif animated fadeIn">
+    <div class="col-12 col-md-6 f_gris animated slideInLeft">
+
+        <div class="row">
+            <div class="col-10">
+                <h1>Editar Ticket</h1>
+            </div>
+            <div class="col-2">
+                <i class="fas fa-times fa-2x" (click)="modalEditar = !modalEditar"></i>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <form (ngSubmit)="guardar(f)" #f="ngForm">
+
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" [(ngModel)]="texto" name="texto" class="form-control" placeholder="Comentario de cierre" required>
+                    </div>
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary w-25">
+                   <i class="fa fa-save"></i> 
+                   Guardar          
+                  </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

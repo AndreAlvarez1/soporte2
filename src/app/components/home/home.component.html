@@ -1,3 +1,15 @@
+<div class="row indicadores">
+    <div class="col-12">
+        <p class="animated fadeIn"><i class="fab fa-bitcoin"></i> {{indicadores.bitcoin | currency:'USD'}}</p>
+        <p class="animated fadeIn"><i class="fas fa-dollar-sign"></i> Dolar: {{indicadores.dolar | currency:'USD'}}</p>
+        <p class="animated fadeIn"><i class="fas fa-euro-sign"></i> Euro: {{indicadores.euro | currency:'EUR'}}</p>
+        <p class="animated fadeIn"><i class="fas fa-coins"></i> UF: {{indicadores.uf | currency:'CLP'}}</p>
+        <p class="animated fadeIn"><i class="fas fa-user-tie"></i> Desempleo: {{indicadores.desempleo}} %</p>
+        <p class="animated fadeIn"><i class="fas fa-mountain"></i> Cobre: {{indicadores.cobre | currency:'USD'}} %</p>
+        <p class="animated fadeIn"><i class="fas fa-chart-line"></i> Imacec: {{indicadores.imacec}} %</p>
+    </div>
+</div>
+
 <div class="row">
 
     <div class="col-12 col-md-4 logo animated slideInLeft">
@@ -8,7 +20,6 @@
 
         <h1>{{hoy}}</h1>
         <h5>Bienvenido: {{usuario.nombre}} </h5>
-
 
         <div *ngIf="loading" class="row cargando">
             <div class="col-12 loading text-center">

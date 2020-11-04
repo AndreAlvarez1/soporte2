@@ -10,14 +10,13 @@ import { TicketModel } from '../model/ticket.model';
   providedIn: 'root'
 })
 export class ConexionesService {
-private url = 'https://mantenedor-77567.firebaseio.com'
+private url = 'https://mantenedor-77567.firebaseio.com';
 
 constructor(private http: HttpClient) { }
 
 getDato(dir: string, id: string) {
  return this.http.get(`${this.url}/${dir}/${id}.json`);
 }
-
 
 borrarDato(dir, id: string) {
   return this.http.delete(`${this.url}/${dir}/${id}.json`);
@@ -28,7 +27,6 @@ actualizarTicket(ticket: TicketModel, ruta) {
  }
 
 
-
 getDatos(ruta) {
   return this.http.get(`${this.url}/${ruta}.json`)
             .pipe(
@@ -37,13 +35,14 @@ getDatos(ruta) {
 }
 
 getDatosFiltrados(ruta, filtro) {
+  console.log('ruta', `${this.url}/${ruta}.json?${filtro}`);
   return this.http.get(`${this.url}/${ruta}.json?${filtro}`)
             .pipe(
               map( resp => this.crearArreglo(resp) )
             );
 }
 
-private crearArreglo(dato: object) {
+public crearArreglo(dato: object) {
   const arreglo = [];
   Object.keys(dato).forEach( key => {
     const elemento = dato[key];
@@ -97,7 +96,6 @@ crearConexion(conexion: ConexionModel ) {
  }
 
 
-
 private crearArregloConexiones(Obj: object) {
 
   const conexiones: ConexionModel[] = [];
@@ -113,8 +111,7 @@ private crearArregloConexiones(Obj: object) {
   return conexiones;
 }
 
-getNoticias(){
-
+getNoticias() {
 }
 
 
@@ -210,6 +207,13 @@ crearVersion(version: VersionModel ) {
  }
 
 
+
+
+
+
+ apiFinansas() {
+  return this.http.get('https://mindicador.cl/api');
+ }
 
 
  ////////////////// CLIENTES ///////////

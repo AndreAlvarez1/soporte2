@@ -1,0 +1,72 @@
+.encabezado {
+    padding: 20px;
+    color: white;
+}
+
+.encabezado h1 {
+    font-size: 4em;
+    font-weight: 700;
+    margin-bottom: -10px;
+}
+
+.encabezado p {
+    margin: 0;
+    font-size: 1.1em;
+    letter-spacing: 1em;
+}
+
+.graficos {
+    color: #BAC6DB;
+}
+
+.cifras {
+    padding: 20px;
+}
+
+.dato {
+    margin-bottom: 30px;
+}
+
+.dato h1 {
+    font-size: 3em;
+    margin-bottom: -5px;
+    font-weight: 700;
+}
+
+.dato p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 20px;
+    font-size: 1.3em;
+}
+
+.dato .icono {
+    padding-top: 5px;
+}
+
+.grafico {
+    margin-bottom: 40px;
+}
+
+.graficos h1 {
+    font-weight: 700;
+}
+
+.table {
+    color: #BAC6DB;
+}
+
+@media (min-width: 768px) {
+    .dato .icono {
+        padding-top: 17px;
+    }
+    .dato h1 {
+        font-size: 4em;
+        margin-bottom: -5px;
+        font-weight: 700;
+    }
+}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}

@@ -1,0 +1,14 @@
+.headerTitulo h2 {
+    font-size: 1.2em;
+}
+
+.formulario {
+    padding: 20px;
+    height: 100vh;
+}
+
+.formulario h1 {
+    font-weight: 700;
+    font-size: 3em;
+    line-height: 0.8em;
+}

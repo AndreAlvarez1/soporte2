@@ -54,7 +54,7 @@ export class NoticiasComponent implements OnInit {
   }
 
 
-  abrirNoticia(noticia){
+  abrirNoticia(noticia) {
     this.router.navigateByUrl(`/noticia/${noticia.id}`);
   }
 

@@ -1,0 +1,174 @@
+<div class="row encabezado f_oscuro">
+    <div class="col-12 col-md-4">
+        <h1>STATS</h1>
+        <p>soporte</p>
+    </div>
+
+    <form (ngSubmit)="filtrar( f )" #f="ngForm" class="col-12 col-md-8">
+
+        <div class="row animated fadeIn">
+            <div class="col-12 col-md-4 offset-md-2">
+                <div class="form-group">
+                    <label>Fecha Inicial</label>
+                    <input type="date" class="form-control" placeholder="Inicio Periodo" [(ngModel)]="firstDay" name="fechaIni" required>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label>Fecha Final</label>
+                    <input type="date" class="form-control" placeholder="Fin Periodo" [(ngModel)]="lastDay" name="fechaFin" required>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-2">
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-outline-primary btn-block botonMargen">
+                    <i class="fa fa-search"></i>   
+                  </button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="row graficos f_oscuro">
+    <div class="col-10 offset-1">
+
+        <div class="row cifras">
+            <div class="col-12 col-md-6 col-lg-3 dato">
+                <div class="row ">
+                    <div class="col-4 col-md-2 text-center icono">
+                        <i class="fas fa-receipt fa-3x"></i>
+                    </div>
+                    <div class="col-6 col-md-10 text-left">
+                        <h1>{{resueltos}}</h1>
+                    </div>
+                    <p>Tickets Resueltos ( {{resueltos * 100 / tickets.length | number: '0.1-1'}} %)</p>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-3 dato">
+                <div class="row ">
+
+                    <div class="col-4 col-md-2 text-center icono">
+                        <i class="far fa-star fa-3x"></i>
+                    </div>
+                    <div class="col-6 col-md-10 text-left">
+                        <h1>{{notaPromedio | number:'0.1-2' }}</h1>
+                    </div>
+                    <p>Nota Promedio</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 dato">
+                <div class="row ">
+
+                    <div class="col-4 col-md-2 text-center icono">
+                        <i class="far fa-clock fa-3x"></i>
+                    </div>
+                    <div class="col-6 col-md-10 text-left">
+                        <h1>{{tiempoPromedio | number:'0.1-1'}}</h1>
+                    </div>
+                    <p>Tiempo Promedio</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 dato">
+                <div class="row ">
+
+                    <div class="col-4 col-md-2 text-center icono">
+                        <i class="far fa-sad-tear fa-3x"></i>
+                    </div>
+                    <div class="col-6 col-md-10 text-left">
+                        <h1>{{pendientes}}</h1>
+                    </div>
+                    <p>Tickets Pendientes</p>
+                </div>
+            </div>
+        </div>
+
+        <!--/========================================================/-->
+        <!--/========================================================/-->
+        <!--/====================== Fin Cifras ======================/-->
+        <!--/========================================================/-->
+        <!--/========================================================/-->
+
+
+        <div class="row grafico">
+            <div class="col-12">
+                <h1>Tickets por tipo de consulta</h1>
+                <canvas baseChart [data]="tiposData" [labels]="tiposLabels" [chartType]="dona" [colors]="donutColors">
+              </canvas>
+            </div>
+        </div>
+
+
+        <div class="row grafico">
+            <div class="col-12">
+                <h1>Tickets por persona</h1>
+                <canvas baseChart [datasets]="personasData" [labels]="personasLabels" [options]="personasOptions" [legend]="personasLegend" [chartType]="personasType" [colors]="donutColors">
+              </canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"><i class="fas fa-receipt" style="color:#D6425B"></i> Tickets</th>
+                        <th scope="col"><i class="far fa-clock" style="color:9EE6F7"></i> Tiempo Promedio</th>
+                        <th scope="col"><i class="far fa-star text-warning"></i> Nota Promedio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let persona of tecnicos; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{persona.nombre}}</td>
+                        <td>{{persona.tickets}}</td>
+                        <td>{{persona.tiempo / persona.tickets | number: '0.1-1' }}</td>
+                        <td>{{persona.nota / persona.tickets | number: '0.1-1' }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="row grafico">
+            <div class="col-12">
+                <h1>Tickets por día</h1>
+                <canvas baseChart [datasets]="diasData" [labels]="diasLabels" [options]="diasOptions" [legend]="diasLegend" [chartType]="diasType"></canvas>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row pb-5">
+            <h1>Tickets por clientes</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"><i class="fas fa-receipt" style="color:#D6425B"></i> Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{cliente.cliente | titlecase}}</td>
+                        <td>{{cliente.cantidad}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>

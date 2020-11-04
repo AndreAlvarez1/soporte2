@@ -2,11 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { ChartsModule } from 'ng2-charts';
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ConexionesComponent } from './components/conexiones/conexiones.component';
 import { ConexionComponent } from './components/conexion/conexion.component';
@@ -27,6 +29,17 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { NoticiaComponent } from './admin/noticia/noticia.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { HorariosComponent } from './soporte/horarios/horarios.component';
+import { TicketsComponent } from './soporte/tickets/tickets.component';
+import { StatsComponent } from './soporte/stats/stats.component';
+import { TicketComponent } from './soporte/ticket/ticket.component';
+import { DescargasComponent } from './soporte/descargas/descargas.component';
+import { SucursalesComponent } from './appetito/sucursales/sucursales.component';
+import { StoresComponent } from './appetito/stores/stores.component';
+import { SucursalComponent } from './appetito/sucursal/sucursal.component';
+import { ClientesComponent } from './admin/clientes/clientes.component';
+import { ClienteComponent } from './admin/cliente/cliente.component';
+import { LocalesComponent } from './notificador/locales/locales.component';
+import { MarcasComponent } from './appetito/marcas/marcas.component';
 
 
 @NgModule({
@@ -48,13 +61,25 @@ import { HorariosComponent } from './soporte/horarios/horarios.component';
     NoticiasComponent,
     NoticiaComponent,
     LoadingComponent,
-    HorariosComponent
+    HorariosComponent,
+    TicketsComponent,
+    StatsComponent,
+    TicketComponent,
+    DescargasComponent,
+    SucursalesComponent,
+    StoresComponent,
+    SucursalComponent,
+    ClientesComponent,
+    ClienteComponent,
+    LocalesComponent,
+    MarcasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     WebsocketService,

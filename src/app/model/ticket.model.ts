@@ -14,10 +14,10 @@ export class TicketModel {
     historial: object;
     tiempo: number;
     cerrado: string;
+    mm: number;
 
     constructor() {
         this.horaFin = 'pendiente';
-        this.tecnico = 'pendiente';
         this.valoracion = 0;
         this.tipo = 'Escoge un tipo de consulta';
     }

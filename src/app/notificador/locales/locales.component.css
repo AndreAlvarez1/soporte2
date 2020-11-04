@@ -1,0 +1,148 @@
+.header {
+    background-color: #3177ef;
+    padding: 20px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.tablaLocales {
+    height: calc(100vh);
+    overflow: auto;
+    border-right: 1px solid grey;
+    border-bottom: 3px solid #F3507D;
+    background-color: white;
+}
+
+.tablaOrders {
+    height: 50vh;
+    overflow: auto;
+}
+
+.cargando {
+    color: #3177ef;
+    margin-top: 20%;
+}
+
+.cargando h3 {
+    font-weight: 700;
+}
+
+.encabezado {
+    background-color: #46637f;
+    padding: 20px;
+}
+
+.encabezado h2 {
+    font-size: 2em;
+    color: white;
+    font-weight: 700;
+}
+
+.encabezado p {
+    color: white;
+    margin-bottom: 0;
+}
+
+.derecha {
+    height: 100vh;
+    overflow: auto;
+}
+
+.tictac {
+    background-image: url(src/assets/img/tictac.png);
+}
+
+.infoUber {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.infoUber p {
+    margin-bottom: 0;
+}
+
+.orders {
+    background-color: #1C1C1C;
+    color: white;
+    padding: 20px;
+}
+
+.orders h1 {
+    font-weight: 700;
+    font-size: 1.8em;
+}
+
+.orders p {
+    font-size: 1em;
+}
+
+
+/* MODAL */
+
+.encabezadoPedido {
+    background-color: black;
+    padding: 20px;
+    color: white;
+}
+
+.encabezadoPedido p {
+    margin-bottom: 0;
+}
+
+.detalle {
+    padding: 20px;
+}
+
+.detalle p {
+    margin-bottom: 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.detalle span {
+    margin-bottom: 0;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.productos {
+    padding: 20px;
+    background-color: #EAEAEA;
+}
+
+.producto {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.producto p {
+    margin-bottom: 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.producto span {
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.producto h4 {
+    margin-bottom: 0;
+    font-size: 1em;
+}
+
+.modif h5 {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.total h1 {
+    margin-bottom: 0;
+    font-size: 1.2em;
+    font-weight: 700;
+}

@@ -14,16 +14,32 @@ import Swal from 'sweetalert2';
 export class NavbarComponent implements OnInit {
 
   admin = false;
-  user = JSON.parse(localStorage.getItem('usuarioM'));
-
+  usuario = { mail: '',
+              nivel: 0,
+              nombre: '',
+              password: '',
+              id: '',
+              cliente: '',
+              sala: ''
+            };
 
   constructor(private auth: AuthService,
               public ws: WebsocketService,
-              private conex: ConexionesService) { }
+              private conex: ConexionesService) {
+
+                if (localStorage.getItem('usuarioM')) {
+                  this.usuario = JSON.parse(localStorage.getItem('usuarioM'));
+                  if (JSON.parse(localStorage.getItem('usuarioM')).nombre === '') {
+                    console.log('tamos mal', );
+                  }
+                }
+              }
 
   ngOnInit() {
     this.admin = this.auth.esAdmin();
     this.getNoticias();
+    // this.getClienteConectado();
+    this.getPrivados();
   }
 
 
@@ -34,7 +50,7 @@ export class NavbarComponent implements OnInit {
  getNoticias() {
    this.ws.listen('noticias').subscribe( resp => {
       const noticia: NoticiaModel = resp;
-      if (noticia.para === this.user.nombre || noticia.para === 'gournet') {
+      if (noticia.para === this.usuario.nombre || noticia.para === 'gournet') {
         this.alertaNoticia(noticia);
       } else {
         return;
@@ -42,7 +58,22 @@ export class NavbarComponent implements OnInit {
    });
  }
 
+// getClienteConectado() {
+//   this.ws.listen('usuarios-activos').subscribe( resp => {
+//     console.log('Se conectó un cliente', resp);
+//     for ( const client of resp) {
+//       if ( client.cliente !== 'Gour-net') {
+//         this.alertaCliente(client);
+//       }
+//     }
+//   });
+// }
 
+getPrivados() {
+  this.ws.listen('mensaje-privado').subscribe( resp => {
+    this.alertaMensaje(resp);
+  });
+}
 
 //  getConectados() {
 //   console.log('estoy en', this.sala);
@@ -57,8 +88,30 @@ export class NavbarComponent implements OnInit {
 //   });
 // }
 
+
+// alertaCliente(client) {
+//   this.conex.sonido('notificacion.mp3');
+//   const Toast = Swal.mixin({
+//     toast: true,
+//     position: 'top-end',
+//     showConfirmButton: false,
+//     timer: 3000,
+//     timerProgressBar: true,
+//     onOpen: (toast) => {
+//       toast.addEventListener('mouseenter', Swal.stopTimer);
+//       toast.addEventListener('mouseleave', Swal.resumeTimer);
+//     }
+//   });
+
+//   Toast.fire({
+//     icon: 'warning',
+//     title: 'Nuevo Ticket',
+//     text: client.cliente
+//   });
+// }
+
 alertaNoticia(noticia) {
-  this.conex.sonido('notificacion.mp3')
+  this.conex.sonido('notificacion.mp3');
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -78,5 +131,31 @@ alertaNoticia(noticia) {
   });
 
 }
+
+alertaMensaje(info) {
+  this.conex.sonido('metalgear.mp3');
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-start',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+  });
+
+  Toast.fire({
+    icon: 'info',
+    title: 'Mensaje de ' + info.de,
+    text: info.cuerpo
+  });
+
+}
+
+
+
+
 
 }

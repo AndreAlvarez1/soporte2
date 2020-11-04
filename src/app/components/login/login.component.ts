@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
               private ws: WebsocketService) {
 
                 if (localStorage.getItem('usuarioM')) {
-                  this.mail =  JSON.parse(localStorage.getItem('usuarioM')).mail;
+                    this.mail =  JSON.parse(localStorage.getItem('usuarioM')).mail;
+                    // if (JSON.parse(localStorage.getItem('usuarioM')).id !== '') {
+                    //   console.log('hay datos');
+                    //   this.ws.logoutWs();
+                    // }
                 }
 
                }
@@ -39,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
     });
   }
+
 
   validarMail(form) {
     const mailForm = form.controls.mail["value"];
@@ -59,12 +64,14 @@ export class LoginComponent implements OnInit {
     const passForm = form.controls.pass["value"];
     if (passForm === this.usuario.password) {
       localStorage.setItem('usuarioM', JSON.stringify(this.usuario));
-      this.router.navigateByUrl('/home');
+      // this.router.navigateByUrl('/home');
       this.ws.loginWs(this.usuario);
       } else {
       this.error('Password equivocado', 'intentalo de nuevo');
     }
   }
+
+
 
 
  // WARNINGS

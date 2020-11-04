@@ -1,0 +1,307 @@
+<div class="row header" style="margin:0">
+    <div class="col-8">
+        <h1 (click)="info()">Notificadores</h1>
+        <p>Conectado a node Notificador</p>
+    </div>
+
+    <div class="col-4">
+        <input type="text" class="form-control" name="searchString" placeholder="Buscador..." [(ngModel)]="searchString" />
+    </div>
+</div>
+
+<div class="row tictac" style="margin:0">
+    <div class="col-4">
+        <div class="row tablaLocales">
+            <div class="col-12 table-responsive-sm" style="padding:0">
+                <table class="table table-striped table-hover animated fadeIn ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Local</th>
+                            <th *ngIf="admin" scope="col">Token</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf=!loading class="  animated fadeIn ">
+                        <tr *ngFor="let l of locales | filter : { 'company' : searchString, 'local' : searchString} ; index as i " (click)="selectLocal(l)" class="pointer">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{l.company | titlecase }}</td>
+                            <td>{{l.local }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- LOADING COL DERECHA -->
+    <div *ngIf="verLocal && loading2" class="col-8 animated fadeIn tictac ">
+
+        <div class="row cargando">
+            <div class="col-12 text-center">
+                <i class="fas fa-hotdog fa-spin fa-2x"></i>
+                <h3 class="animated pulse infinite">Cargando</h3>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ================================== -->
+    <!-- ================================== -->
+    <!-- ================================== -->
+    <!-- ************ Info Local ********** -->
+    <!-- ================================== -->
+    <!-- ================================== -->
+    <!-- ================================== -->
+
+    <div *ngIf="verLocal && !loading2" class="col-8 animated fadeIn tictac">
+
+        <div class="row derecha">
+            <div class="col-12">
+
+
+
+                <div class="row encabezado">
+                    <div class="col-12">
+                        <h2>{{local.company | titlecase}}</h2>
+                    </div>
+                    <div class="col-6">
+                        <p>id: {{local.id}}</p>
+                        <p>Space name: {{local.local}}</p>
+                        <p>Local: {{local.name}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p>Token Exterior: {{local.enable_external}}</p>
+                        <p>Creado: {{local.created_at | date}}</p>
+                        <p>status {{local.status}}</p>
+                    </div>
+                </div>
+
+
+
+                <div class="row uber infoUber">
+                    <div class="col-3 text-center">
+                        <img src="./assets/img/uber.png" width="100px">
+                    </div>
+
+                    <div *ngIf="uber === undefined" class="col-9">
+                        <p>existio en el pasado {{uber}}</p>
+                    </div>
+
+                    <div *ngIf="uber != undefined" class="col-9 ">
+                        <p>Status: <i [ngClass]="uber.pos_integration_enabled  ? 'text-success fas fa-toggle-on fa-2x' : 'text-danger fas fa-toggle-off fa-2x' " class="pointer" (click)="activarTienda()"></i></p>
+                        <p>Integrado: <i [ngClass]="uber.online_status === 'online' ? 'text-success' : 'text-danger' " class="fas fa-circle"></i></p>
+                        <p>Auto Accept: <i [ngClass]="uber.auto_accept_enabled ? 'text-success' : 'text-danger' " class="fas fa-circle"></i></p>
+                        <p>Store id <span>{{uber.store_id}}</span></p>
+                    </div>
+                </div>
+
+                <div class="row orders">
+                    <div class="col-3">
+                        <h1>Orders</h1>
+                        <p>Cantidad: {{cantOrders | number }}</p>
+                    </div>
+
+                    <form (ngSubmit)="filtrar( f )" #f="ngForm" class="col-12 col-md-9">
+
+                        <div class="row animated fadeIn">
+                            <div class="col-12 col-md-5">
+                                <div class="form-group">
+                                    <label>Fecha Inicial</label>
+                                    <input type="date" class="form-control" placeholder="Inicio Periodo" [(ngModel)]="firstDay" name="fechaIni" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <div class="form-group">
+                                    <label>Fecha Final</label>
+                                    <input type="date" class="form-control" placeholder="Fin Periodo" [(ngModel)]="lastDay" name="fechaFin" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-2">
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-outline-primary btn-block botonMargen">
+                        <i class="fa fa-search"></i>   
+                      </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                    <div class="col-12 mt-1">
+                        <input type="text" class="form-control" name="searchString2" placeholder="Buscador..." [(ngModel)]="searchString2" />
+                    </div>
+
+
+                </div>
+                <!-- Encabezada orders -->
+
+                <div *ngIf="loading3" class="row cargando">
+                    <div class="col-12 text-center">
+                        <i class="fas fa-hotdog fa-spin fa-2x"></i>
+                        <h3 class="animated pulse infinite">Cargando</h3>
+                    </div>
+                </div>
+
+
+
+                <div *ngIf="!loading3 && orders.length > 0 " class="row tablaOrders">
+                    <div class="col-12 table-responsive-sm" style="padding:0">
+                        <table class="table table-striped table-hover animated fadeIn ">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">id</th>
+                                    <th scope="col">order Id</th>
+                                    <th scope="col">Canal</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Actualizado</th>
+                                    <th scope="col">Status</th>
+                                    <th *ngIf="admin" scope="col">Token</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="animated fadeIn ">
+                                <tr *ngFor="let o of orders | filter : { 'id' : searchString2, 'order_id' : searchString2, 'system' : searchString2, 'created_at' : searchString2, 'status' : searchString2} ; index as i " (click)="selectOrder(o)" class="pointer">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{o.id}}</td>
+                                    <td>{{o.order_id}}</td>
+                                    <td>{{o.system}}</td>
+                                    <td>{{o.created_at | date: 'd/MM/yy'}}</td>
+                                    <td>{{o.created_at | date : 'hh:mm a'}}</td>
+                                    <td>{{o.updated_at | date : 'hh:mm a'}}</td>
+                                    <td *ngIf="o.status === 0" class="text-warning animated pulse infinite"> No recibida - {{o.status}} </td>
+                                    <td *ngIf="o.status === 1" class="text-primary"> Recibida - {{o.status}} </td>
+                                    <td *ngIf="o.status === 2" class="text-success"> Aceptada - {{o.status}} </td>
+                                    <td *ngIf="o.status === 3" class="text-danger"> Rechazada - {{o.status}} </td>
+                                    <td *ngIf="o.status === 4" class="text-dark"> Cancelada - {{o.status}} </td>
+                                    <td *ngIf="o.status === 5" class="text-primary"> Orden Visualizada - {{o.status}} </td>
+                                    <td *ngIf="o.status === 6" class="text-success"> Aceptada - {{o.status}} </td>
+                                    <td *ngIf="o.status === 9"> {{o.status}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div *ngIf="!loading3 && orders.length < 1" class="row">
+                    <div class="col-12 text-center mt-2">
+                        <p>Periodo sin ventas por aplicaciones</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div *ngIf="modalPedido" class="row fondoModif">
+    <div class="col-10 col-md-8 animated slideInLeft bg-light">
+
+        <div class="row encabezadoPedido">
+            <div class="col-2">
+                <img *ngIf="order.system === 'UBER' " src="./assets/img/uber.png" width="100px">
+            </div>
+            <div class="col-8">
+                <p>Pedido: {{order.id}}</p>
+                <p>id Uber: {{order.order_id}}</p>
+                <p *ngIf="order.status === 0" class="text-warning animated pulse infinite"> No recibida - {{order.status}} </p>
+                <p *ngIf="order.status === 1" class="text-primary"> Recibida - {{order.status}} </p>
+                <p *ngIf="order.status === 2" class="text-success"> Aceptada - {{order.status}} </p>
+                <p *ngIf="order.status === 3" class="text-danger"> Rechazada - {{order.status}} </p>
+                <p *ngIf="order.status === 4" class="text-dark"> Cancelada - {{order.status}} </p>
+                <p *ngIf="order.status === 5" class="text-primary"> Orden Visualizada - {{order.status}} </p>
+                <p *ngIf="order.status === 6" class="text-success"> Aceptada - {{order.status}} </p>
+                <p *ngIf="order.status === 9"> {{o.status}} </p>
+                <p>Actualizado: {{order.updated_at | date: 'd/MM/yy'}} | {{order.updated_at | date : 'hh:mm a'}}</p>
+            </div>
+            <div class="col-2">
+                <i class="fas fa-times fa-2x pointer" (click)="modalPedido = false"></i>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="order.system === 'UBER' " class="row">
+            <div class="col-12">
+
+
+                <div class="row detalle">
+                    <div class="col-5 offset-1">
+                        <p>Cliente: <span>{{order.detalle.eater.first_name}} {{order.detalle.eater.last_name}}  </span></p>
+                        <p>Tel: <span>{{order.detalle.eater.phone}}</span></p>
+                        <p>Estado Uber: {{order.detalle.current_state}}</p>
+                    </div>
+                    <div class="col-5">
+                        <p>Id Uber: {{order.detalle.display_id }}</p>
+                        <p>Recibido: {{order.detalle.placed_at | date : 'hh:mm a'}}</p>
+                        <p>Entrega: {{order.detalle.estimated_ready_for_pickup_at | date : 'hh:mm a'}}</p>
+                    </div>
+                </div>
+
+                <!-- Productos -->
+                <div class="row  productos">
+                    <div class="col-10 offset-1">
+                        <div *ngFor="let p of order.detalle.cart.items" class="row producto">
+
+                            <div class="col-9">
+                                <p>{{p.title}} <span>{{p.external_data}} </span></p>
+                            </div>
+                            <div class="col-3">
+                                <h4>{{p.quantity}} x {{p.price.unit_price.formatted_amount}}</h4>
+                            </div>
+
+                            <div *ngIf="p.selected_modifier_groups !== null" class="col-12">
+                                <div *ngFor="let modif of p.selected_modifier_groups" class="modif">
+
+                                    <div *ngFor="let m of modif.selected_items" class="row">
+                                        <div class="col-10">
+                                            <h5>-> {{m.title}}</h5>
+                                        </div>
+                                        <div class="col-2">
+                                            <h5>{{m.price.total_price.formatted_amount}}</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row total">
+                            <div class="col-12 text-right">
+                                <h1>Total: {{order.detalle.payment.charges.total.formatted_amount}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Fin productos -->
+
+                <hr>
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <button class="btn btn-danger btn-block" (click)="anularUber()">Anular Pedido</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- FIN UBER -->
+
+
+    </div>
+</div>

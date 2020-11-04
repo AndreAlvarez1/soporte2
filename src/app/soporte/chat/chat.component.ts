@@ -34,9 +34,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   mensajes: any[]         = [];
   salas: any[]            = [];
   conectados: any[]       = [];
+  otros: any[]            = [];
 
   sala: string;
   id: string;
+
+  persona: any;
+
+  modalPrivado = false;
+
+  textoPrivado = '';
+
 
   constructor(public chat: ChatService,
               public router: Router,
@@ -55,6 +63,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.traerChat(); // Trae el ticket
     this.actualizarUsuario();
     this.getConectados();
+    
 
     this.conex.sonido('home.mp3');
 
@@ -67,7 +76,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.mensajes.push(msg);
       console.log('aca', this.mensajes);
 
-      // this.actualizarTicket(this.id); //  <-- Guarda los mensajes en la bd para respaldo
+      this.actualizarTicket(this.id); //  <-- Guarda los mensajes en la bd para respaldo
+
       setTimeout(() => {
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }, 50);
@@ -100,22 +110,34 @@ export class ChatComponent implements OnInit, OnDestroy {
               });
   }
 
+  // actualizarTicket(id) {
+  //   console.log('actualizado ticket', this.user.id);
+  //   this.ticket.tecnico = this.user.id;
+  //   this.conex.actualizarTicket(this.ticket, `/Tickets/${id}`)
+  //             .subscribe(resp => {
+  //               console.log('ticket actualizado');
+  //             });
+  // }
+
+
   actualizarTicket(id) {
-    console.log('actualizado ticket', this.user.id);
     this.ticket.tecnico = this.user.id;
+    this.ticket.historial = [];
+    for (const msg of this.mensajes) {
+      this.ticket.historial.push(msg);
+    }
     this.conex.actualizarTicket(this.ticket, `/Tickets/${id}`)
               .subscribe(resp => {
                 console.log('ticket actualizado');
               });
   }
 
-
   actualizarUsuario() {
     if (localStorage.getItem('usuarioM')) {
       this.user = JSON.parse(localStorage.getItem('usuarioM'));
       this.sala = this.sala;
       this.user.sala = this.sala;
-      this.ws.loginWs(this.user);
+      this.ws.actualizarLogin(this.user);
       console.log('estoy en la sala', this.user);
 
     } else {
@@ -150,9 +172,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     console.log('estoy en', this.sala);
     this.chat.getUsuariosActivos().subscribe( resp => {
       this.conectados = [];
+      this.otros = [];
+
       for ( const item of resp) {
         if (item.sala === this.sala) {
           this.conectados.push(item);
+        }
+        if (item.cliente === 'Gour-net' && item.sala !== this.sala) {
+          this.otros.push(item);
         }
       }
       console.log(this.conectados);
@@ -191,6 +218,29 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.enviar();
     }
 
+
+    selectPersona(value) {
+      this.modalPrivado = true;
+      this.persona = value;
+      console.log('persona', this.persona);
+    }
+
+    enviarPrivado() {
+      const body = { id: this.persona.id,
+                     cuerpo: this.textoPrivado,
+                     de: this.persona.nombre
+                    };
+
+      console.log('debo enviar', body);
+
+      this.ws.privado(body).subscribe ( resp => {
+        console.log('mensaje privado', resp);
+        this.modalPrivado = false;
+        this.alertEnviado();
+        this.textoPrivado = '';
+      });
+    }
+
   // ============================================================================ //
   // ============================================================================ //
   // ================================== WARNINGS ================================ //
@@ -202,6 +252,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Ticket Cerrado',
       text: texto,
+      icon: 'success'
+    });
+  }
+ 
+  alertEnviado() {
+    Swal.fire({
+      title: 'Mensaje Privado',
+      text: 'Enviado con exito',
       icon: 'success'
     });
   }
