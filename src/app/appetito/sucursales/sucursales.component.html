@@ -8,7 +8,13 @@
                 <h1 (click)="info()">Sucursales <br> Appetito </h1>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary" routerLink="/appetito/marcas">Ver Marcas</button>
+                <div class=" form-group">
+                    <label for="marca">Marca</label>
+                    <select class="form-control" required name="marca" (change)="filtrar($event.target.value)">
+                        <option>Todas</option>
+                        <option *ngFor="let m of marcas" >{{m.name}}</option>
+                  </select>
+                </div>
             </div>
         </div>
 

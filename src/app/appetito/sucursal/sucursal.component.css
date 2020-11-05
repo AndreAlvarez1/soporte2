@@ -5,6 +5,7 @@
 .formulario {
     padding: 20px;
     height: 100vh;
+    overflow: auto;
 }
 
 .formulario h1 {

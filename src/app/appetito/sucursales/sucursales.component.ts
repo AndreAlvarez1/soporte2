@@ -5,7 +5,7 @@ import { AddressModel } from 'src/app/model/address.model';
 // import regiones from 'src/assets/js/regiones.json';
 
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
 
@@ -16,9 +16,10 @@ import Swal from 'sweetalert2';
 })
 export class SucursalesComponent implements OnInit {
   loading = true;
-
+  id: any;
   sucursal: SucursalModel;
   sucursales: any[]        = [];
+  sucursalesAll: any[]        = [];
   marcas: any[]        = [];
   searchString: string;
   editar = false;
@@ -26,8 +27,11 @@ export class SucursalesComponent implements OnInit {
   token: string;
 
   constructor(private appetito: AppetitoService,
-              private router: Router
-               ) { }
+              private router: Router,
+              private route: ActivatedRoute
+               ) {
+                this.id = Number(this.route.snapshot.paramMap.get('id'));
+               }
 
   ngOnInit() {
     this.token = uuidv4();
@@ -44,10 +48,10 @@ export class SucursalesComponent implements OnInit {
     console.log('sucursal', this.sucursal);
   }
 
-traerMarcas(){
+traerMarcas() {
   console.log('traigo marcas');
   this.appetito.traeDatos('/marcas').subscribe( resp => {
-    console.log('respuesta', resp);
+    console.log('respuesta marcas', this.id, resp);
     this.marcas = resp['datos'];
     this.traerSucursales();
   });
@@ -57,10 +61,28 @@ traerMarcas(){
     console.log('traigo sucursales');
     this.appetito.traeDatos('/sucursales').subscribe( resp => {
       console.log('respuesta', resp);
-      this.sucursales = resp['datos'];
+      this.sucursalesAll = resp['datos'];
+
+      if ( this.id === 0) {
+        this.sucursales = resp['datos'];
+      } else {
+        this.sucursales = resp['datos'].filter( m => m.marcaId === this.id);
+      }
       this.loading = false;
     });
   }
+
+
+filtrar(value) {
+  console.log('value', value);
+  const marca = this.marcas.find( m => m.name === value);
+  console.log('aca', marca);
+  if (value === 'Todas') {
+    this.sucursales = this.sucursalesAll;
+  } else {
+    this.sucursales = this.sucursalesAll.filter( m => m.marcaId === marca.id);
+  }
+}
 
   selectSucursal(item) {
     this.sucursal = item;
@@ -116,7 +138,6 @@ traerMarcas(){
                 console.log('addressData', data);
               });
   }
-
 
   // --------------------------------------------//
   //                                             //

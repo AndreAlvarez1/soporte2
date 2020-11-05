@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppetitoService } from 'src/app/services/appetito.service';
 import { SucursalModel } from 'src/app/model/sucursal.model';
+import { StoreModel } from 'src/app/model/store.model';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-sucursal',
@@ -14,15 +17,9 @@ export class SucursalComponent implements OnInit {
   id: any;
   searchString: string;
   editar = false;
-  sucursal: SucursalModel = new SucursalModel();
   stores: any[] = [];
-  store = {
-            id: 0,
-            marca: '',
-            sucursalID: 0,
-            status: 1
-        };
-
+  sucursal: SucursalModel = new SucursalModel();
+  store: StoreModel = new StoreModel();
 
 
   constructor(private appetito: AppetitoService,
@@ -38,7 +35,7 @@ export class SucursalComponent implements OnInit {
     console.log('this.store', this.store);
   }
 
-  info(){
+  info() {
     console.log('sucursal', this.sucursal);
     console.log('stores', this.stores);
     console.log('store', this.store);
@@ -81,19 +78,13 @@ export class SucursalComponent implements OnInit {
                  .subscribe( resp => {
                    console.log('store guardado', resp);
                    this.traerStores();
-                   this.limpiar();
+                   this.alertOk('grabado con exito');
                   }, err => {console.log('error', err);
                   });
   }
 
   limpiar() {
-    this.store = {
-                      id: 0,
-                      marca: '',
-                      sucursalID: this.id,
-                      status: 1
-                };
-    this.editar = false;
+    this.store = new StoreModel();
   }
 
 
@@ -102,6 +93,20 @@ export class SucursalComponent implements OnInit {
     console.log('store', this.store);
     this.editar = true;
   }
+
+
+
+
+
+  alertOk(texto) {
+    Swal.fire({
+    title: 'Ok',
+    text: texto,
+    icon: 'success',
+    confirmButtonText: 'Ok'
+   });
+  }
+
 
 }
 

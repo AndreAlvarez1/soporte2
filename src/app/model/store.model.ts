@@ -1,10 +1,10 @@
 export class StoreModel {
         id: number;
-        name: string;
         sucursalID: string;
+        name: string;
         marcaId: number;
         status: number;
-        logistic: number;
+        logistics: number;
         external: string;
         poligonos: string;
         cooking: number;
@@ -12,8 +12,18 @@ export class StoreModel {
         redcompra: number;
         webpay: number;
         mercadopago: number;
+        marca: string;
 
     constructor() {
+        this.id = 0;
+        this.marca = '';
+        this.sucursalID = '';
+        this.logistics = 0;
+        this.status = 1;
+        this.efectivo = 1;
+        this.redcompra = 1;
+        this.webpay = 0;
+        this.mercadopago = 0;
     }
 }
 

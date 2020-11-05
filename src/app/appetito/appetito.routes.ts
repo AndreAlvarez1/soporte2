@@ -7,7 +7,7 @@ import { MarcasComponent } from './marcas/marcas.component';
 
 
 export const rutasAppetito: Routes = [
-  { path: 'sucursales', component: SucursalesComponent, canActivate: [ AuthGuard]},
+  { path: 'sucursales/:id', component: SucursalesComponent, canActivate: [ AuthGuard]},
   { path: 'sucursal/:id', component: SucursalComponent, canActivate: [ AuthGuard]},
   { path: 'stores', component: StoresComponent, canActivate: [ AuthGuard]},
   { path: 'marcas', component: MarcasComponent, canActivate: [ AuthGuard]},

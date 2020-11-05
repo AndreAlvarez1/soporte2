@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppetitoService } from 'src/app/services/appetito.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { StoreModel } from 'src/app/model/store.model';
 
 
 @Component({
@@ -13,13 +14,7 @@ export class StoresComponent implements OnInit {
 
 
 
-store = {
-          id: 0,
-          marca: '',
-          sucursalID: 0,
-          status: 0
-};
-
+store: StoreModel = new StoreModel();
 
 stores: any[]        = [];
 searchString: string;
