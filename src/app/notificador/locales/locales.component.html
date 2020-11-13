@@ -213,6 +213,7 @@
         <div class="row encabezadoPedido">
             <div class="col-2">
                 <img *ngIf="order.system === 'UBER' " src="./assets/img/uber.png" width="100px">
+                <img *ngIf="order.system === 'PYA' " src="./assets/img/pya.png" width="100px">
             </div>
             <div class="col-8">
                 <p>Pedido: {{order.id}}</p>
@@ -232,6 +233,8 @@
             </div>
 
         </div>
+
+
 
 
         <div *ngIf="order.system === 'UBER' " class="row">
@@ -302,6 +305,95 @@
         </div>
         <!-- FIN UBER -->
 
+
+
+        <div *ngIf="order.system === 'PYA' " class="row">
+            <div class="col-12">
+
+
+                <div class="row detalle">
+                    <div class="col-5 offset-1">
+                        <p>YA</p>
+                        <p>Cliente: <span>{{order.detalle.user.name}} {{order.detalle.user.lastName}}  </span></p>
+                        <p>Tel: <span>{{order.detalle.user.mobile}}</span></p>
+                        <p>Email: <span>{{order.detalle.user.email}}</span></p>
+                        <p>Estado Uber: {{order.detalle.state}}</p>
+                    </div>
+                    <div class="col-5">
+                        <p>Id Uber: {{order.detalle.id}}</p>
+                        <p>Recibido: {{order.detalle.deliveryDate | date : 'hh:mm a'}}</p>
+                        <p>Entrega: {{order.detalle.deliveryExpectedFrom | date : 'hh:mm a'}}</p>
+                    </div>
+                </div>
+
+                <!-- Productos -->
+                <div class="row  productos">
+                    <div class="col-10 offset-1">
+                        <div *ngFor="let p of order.detalle.details" class="row producto">
+
+                            <div class="col-9">
+                                <p>{{p.product.name}} <span>{{p.integrationCode}} </span></p>
+                            </div>
+                            <div class="col-3">
+                                <h4>{{p.quantity}} x $ {{p.total | number}}</h4>
+                            </div>
+                            <div *ngIf="p.notes !== '' " class="col-12 modif">
+                                <h5>{{p.notes}}</h5>
+                            </div>
+
+                            <div *ngIf="p.optionGroups !== null" class="col-12">
+                                <div *ngFor="let modif of p.optionGroups" class="modif">
+
+                                    <div *ngFor="let m of modif.options" class="row">
+                                        <div class="col-10">
+                                            <h5>-> {{m.name}}<span>{{m.integrationCode}}</span></h5>
+                                        </div>
+                                        <div class="col-2">
+                                            <h5>$ {{m.amount | number }}</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div *ngIf="order.detalle.discount > 0 ">
+                            <div *ngFor="let d of discounts" class="row">
+                                <div class="col-9">
+                                    <p>{{d.notes}} | <span>Paid by:</span> {{d.paidBy}}</p>
+                                    <p>{{d.type}}</p>
+                                </div>
+                                <div class="col-3">
+                                    <h4>$ {{d.amount | number}}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div *ngIf="order.detalle.notes !== '' " class="row note">
+                            <div class="col-12">
+                                <p><i class="fas fa-comment"></i> {{order.detalle.notes}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row total">
+                            <div class="col-12 text-right">
+                                <h1>Total: $ {{order.detalle.paymentAmount | number}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Fin productos -->
+
+                <hr>
+
+            </div>
+        </div>
+        <!-- FIN PYA -->
 
     </div>
 </div>
