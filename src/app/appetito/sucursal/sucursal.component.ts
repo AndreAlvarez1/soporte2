@@ -39,6 +39,7 @@ export class SucursalComponent implements OnInit {
     console.log('sucursal', this.sucursal);
     console.log('stores', this.stores);
     console.log('store', this.store);
+    console.log('editar', this.editar)
   }
 
   traerSucursales() {

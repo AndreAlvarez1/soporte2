@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { FechasService } from 'src/app/services/fechas.service';
 import { NotificadorService } from 'src/app/services/notificador.service';
 
@@ -31,16 +32,20 @@ export class LocalesComponent implements OnInit {
   orders: any[] = [];
   order: any;
   cantOrders = 0;
-
   modalPedido = false;
-
+  
+  admin = false; 
+  
+  
   constructor(private notificador: NotificadorService,
-              private fechas: FechasService) {
+              private fechas: FechasService,
+              private auth: AuthService) {
                 this.ordersHoy();
                 this.getLocales();
   }
 
   ngOnInit() {
+    this.admin = this.auth.esAdmin();
   }
 
   info() {

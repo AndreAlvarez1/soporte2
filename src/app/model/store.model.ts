@@ -13,6 +13,8 @@ export class StoreModel {
         webpay: number;
         mercadopago: number;
         marca: string;
+        transbankId: number;
+        minTotal: number;
 
     constructor() {
         this.id = 0;
@@ -24,6 +26,8 @@ export class StoreModel {
         this.redcompra = 1;
         this.webpay = 0;
         this.mercadopago = 0;
+        this.transbankId = 0;
+        this.minTotal =  0;
     }
 }
 

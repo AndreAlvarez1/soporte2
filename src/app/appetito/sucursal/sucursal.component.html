@@ -52,7 +52,6 @@
     </div>
 
 
-
     <div class="col-4 formulario shadow animated slideInRight">
 
         <div class="row">
@@ -84,14 +83,19 @@
                 <input type="text" [(ngModel)]="store.external" name="external" required class="form-control" placeholder="Nombre de la tienda que vende en la sucursal">
             </div>
 
-            <div class="form-group col-12">
-                <label>Poligonos</label>
-                <textarea type="text" [(ngModel)]="store.poligonos" name="poligonos" class="form-control" placeholder="Pegar Json Aqui"></textarea>
+           
+
+            
+
+            <div class="col-12 pointer" (click)="store.delivery = !store.delivery">
+                <p><i [ngClass]="store.delivery ?  'far fa-check-square' : 'far fa-square' "></i> Delivery</p>
             </div>
 
-            <div class="col-12 pointer" (click)="store.logistics = !store.logistics">
-                <p><i [ngClass]="store.logistics ?  'far fa-check-square' : 'far fa-square' "></i> Logistics</p>
+            <div class="col-12 pointer" (click)="store.pickup = !store.pickup">
+                <p><i [ngClass]="store.pickup ?  'far fa-check-square' : 'far fa-square' "></i> PickUp</p>
             </div>
+           
+          
 
 
             <div class="form-group col-12">
@@ -108,6 +112,29 @@
                 <p (click)="store.mercadopago = !store.mercadopago"><i [ngClass]="store.mercadopago ?  'far fa-check-square' : 'far fa-square' "></i> Mercado Pago</p>
             </div>
 
+            <div *ngIf="store.webpay" class="form-group col-12 animated fadeIn">
+                <label>Codigo de Comercio  (transbank Id) </label>
+                <span *ngIf="f.submitted && f.controls['transbankId'].errors" class="text-danger animated fadeIn">Id para conectar con la bd </span>
+                <input type="text" [(ngModel)]="store.transbankId" name="transbankId" required class="form-control" placeholder="Código de transbank">
+            </div>
+
+            <hr>
+            <h4 *ngIf="store.delivery">Opciones Delivery</h4>
+
+            <div *ngIf="store.delivery" class="form-group col-12">
+                <label>Monto Minimo</label>
+                <span *ngIf="f.submitted && f.controls['minTotal'].errors" class="text-danger animated fadeIn">Monto minimo para hacer delivery</span>
+                <input type="number" [(ngModel)]="store.minTotal" name="minTotal" required class="form-control" placeholder="Monto minimo">
+            </div>
+
+            <div *ngIf="store.delivery" class="col-12 pointer" (click)="store.logistics = !store.logistics">
+                <p><i [ngClass]="store.logistics ?  'far fa-check-square' : 'far fa-square' "></i> Logistics</p>
+            </div>
+
+            <div *ngIf="store.delivery" class="form-group col-12">
+                <label>Poligonos</label>
+                <textarea type="text" [(ngModel)]="store.poligonos" name="poligonos" class="form-control" placeholder="Pegar Json Aqui"></textarea>
+            </div>
 
             <div class="form group text-center col-12">
                 <button type="submit" class="btn btn-block btn-primary">

@@ -8,6 +8,15 @@
                 <p><span>Abierto:</span> {{ticket.fecha | date:'dd/MM/yyyy'}} - {{ticket.horaIni}}</p>
                 <p><span>Consulta:</span>{{ticket.consulta}}</p>
             </div>
+            <div *ngIf="user.nivel > 1 " class="col-12">
+                <button class="btn btn-outline-light" (click)="info()">info</button>
+            </div>
+        </div>
+
+        <div *ngIf="user.nivel > 1 " class="row  cerrar2 pointer d-none d-md-block animated slideInDown" (click)="cerrarTicket()">
+            <div class="col-12 f_black text-light text-center">
+                <h1><i class="fas fa-flag-checkered"></i> Cerrar Ticket</h1>
+            </div>
         </div>
 
 
@@ -39,11 +48,7 @@
             </div>
         </div>
 
-        <div *ngIf="conectados.length < 2" class="row cerrar pointer d-none d-md-block animated slideInDown" (click)="cerrarTicket()">
-            <div class="col-12 f_black text-light text-center">
-                <h1><i class="fas fa-flag-checkered"></i> Cerrar Ticket</h1>
-            </div>
-        </div>
+       
 
     </div>
 

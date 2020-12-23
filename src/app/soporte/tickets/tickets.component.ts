@@ -14,7 +14,7 @@ export class TicketsComponent implements OnInit {
   hoy = new Date();
   searchString: string;
 
-  firstDay: any  = new Date(this.hoy.getFullYear(), this.hoy.getMonth(), 1);
+  firstDay: any  = new Date(this.hoy);
   lastDay: any = new Date(this.hoy.getFullYear(), this.hoy.getMonth() + 1, 0);
   ticketsAll = [];
   tickets = []

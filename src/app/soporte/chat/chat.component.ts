@@ -98,6 +98,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     // }
   }
 
+  info(){
+    console.log('user', this.user);
+    console.log('ticket', this.ticket);
+
+  }
+
   traerChat() {
     this.conex.getDato(`/Tickets/`, this.id)
               .subscribe(resp => {
@@ -129,7 +135,23 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.conex.actualizarTicket(this.ticket, `/Tickets/${id}`)
               .subscribe(resp => {
                 console.log('ticket actualizado');
+
+                this.sacarCliente();
               });
+  }
+
+  sacarCliente(){
+
+    if (this.ticket.horaFin === 'pendiente') {
+      return;
+    }
+
+    const payload = {
+      id: this.id,
+      cliente: this.sala
+    };
+
+    this.ws.emit('cerrar-ticket', payload);
   }
 
   actualizarUsuario() {
@@ -189,10 +211,14 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   async cerrarTicket() {
     this.conex.sonido('klick.mp3');
+
     this.ticket.cerrado = this.user.id;
     this.ticket.tiempo = await this.calcularTiempo();
     this.ticket.valoracion = 2.5;
     this.alertCerrado(`El ticket demoró: ${this.ticket.tiempo} mins en ser resuelto`);
+    
+  
+
     this.actualizarTicket(this.id);
     this.router.navigateByUrl('/home');
   }
