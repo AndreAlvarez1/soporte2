@@ -4,10 +4,10 @@
         <div class="row  f_gris headerTitulo">
             <div class="col-10">
                 <h1 (click)="info()">Stores </h1>
-                <h2>De {{sucursal.marca}}, sucursal: {{sucursal.name}} </h2>
+                <h2>De {{sucursal.marca}}, <br> Sucursal: {{sucursal.name}} </h2>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary" routerLink="/appetito/sucursales">Volver</button>
+                <button class="btn btn-primary" routerLink="/appetito/sucursales/0">Volver</button>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                 <h1>Formulario <br> Store</h1>
             </div>
             <div class="col-4">
-                <i class="pointer" [ngClass]=" store.status ? 'fas fa-toggle-on fa-2x text-success' : 'fas fa-toggle-off fa-2x text-danger' " (click)="store.status = !store.status"></i>
+                <i class="pointer" [ngClass]="store.status === 1 ? 'fas fa-toggle-on fa-2x text-success' : 'fas fa-toggle-off fa-2x text-danger' " (click)="cambiarEstado('status', store.status)"></i>
             </div>
         </div>
 
@@ -87,12 +87,21 @@
 
             
 
-            <div class="col-12 pointer" (click)="store.delivery = !store.delivery">
+            <!-- <div class="col-12 pointer" (click)="store.delivery = !store.delivery">
                 <p><i [ngClass]="store.delivery ?  'far fa-check-square' : 'far fa-square' "></i> Delivery</p>
             </div>
 
             <div class="col-12 pointer" (click)="store.pickup = !store.pickup">
                 <p><i [ngClass]="store.pickup ?  'far fa-check-square' : 'far fa-square' "></i> PickUp</p>
+            </div> -->
+           
+
+            <div class="col-12 pointer" (click)="cambiarEstado('delivery', store.delivery)">
+                <p><i [ngClass]="store.delivery === 1 ?  'far fa-check-square' : 'far fa-square' "></i> Delivery</p>
+            </div>
+
+            <div class="col-12 pointer" (click)="cambiarEstado('pickup', store.pickup)">
+                <p><i [ngClass]="store.pickup === 1 ?  'far fa-check-square' : 'far fa-square' "></i> PickUp</p>
             </div>
            
           
@@ -106,10 +115,10 @@
 
             <div class="form-group col-12 pointer">
                 <label>Medios de pago</label>
-                <p (click)="store.efectivo = !store.efectivo"><i [ngClass]="store.efectivo ?  'far fa-check-square' : 'far fa-square' "></i> Efectivo</p>
-                <p (click)="store.redcompra = !store.redcompra"><i [ngClass]="store.redcompra ?  'far fa-check-square' : 'far fa-square' "></i> Red Compra</p>
-                <p (click)="store.webpay = !store.webpay"><i [ngClass]="store.webpay ?  'far fa-check-square' : 'far fa-square' "></i> WebPay</p>
-                <p (click)="store.mercadopago = !store.mercadopago"><i [ngClass]="store.mercadopago ?  'far fa-check-square' : 'far fa-square' "></i> Mercado Pago</p>
+                <p (click)="cambiarEstado('efectivo', store.efectivo)"><i [ngClass]="store.efectivo === 1 ?  'far fa-check-square' : 'far fa-square' "></i> Efectivo</p>
+                <p (click)="cambiarEstado('redcompra', store.redcompra)"><i [ngClass]="store.redcompra === 1 ?  'far fa-check-square' : 'far fa-square' "></i> Red Compra</p>
+                <p (click)="cambiarEstado('webpay', store.webpay)"><i [ngClass]="store.webpay === 1 ?  'far fa-check-square' : 'far fa-square' "></i> WebPay</p>
+                <p (click)="cambiarEstado('marcadopago', store.mercadopago)"><i [ngClass]="store.mercadopago === 1 ?  'far fa-check-square' : 'far fa-square' "></i> Mercado Pago</p>
             </div>
 
             <div *ngIf="store.webpay" class="form-group col-12 animated fadeIn">
@@ -127,8 +136,8 @@
                 <input type="number" [(ngModel)]="store.minTotal" name="minTotal" required class="form-control" placeholder="Monto minimo">
             </div>
 
-            <div *ngIf="store.delivery" class="col-12 pointer" (click)="store.logistics = !store.logistics">
-                <p><i [ngClass]="store.logistics ?  'far fa-check-square' : 'far fa-square' "></i> Logistics</p>
+            <div *ngIf="store.delivery" class="col-12 pointer" (click)="cambiarEstado('logistics', store.logistics)">
+                <p><i [ngClass]="store.logistics === 1 ?  'far fa-check-square' : 'far fa-square' "></i> Logistics</p>
             </div>
 
             <div *ngIf="store.delivery" class="form-group col-12">

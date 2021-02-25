@@ -47,6 +47,7 @@ export class SucursalComponent implements OnInit {
     this.appetito.traeDatos('/sucursales').subscribe( resp => {
       const sucursales = resp['datos'];
       this.sucursal = sucursales.find( s => s.id === this.id);
+      this.store.marcaId = this.sucursal.marcaId;
     });
   }
 
@@ -66,7 +67,7 @@ export class SucursalComponent implements OnInit {
 
     let accion = 'insert';
 
-    this.store.marca = this.store.marca.replace(/[']+/g, '');
+    // this.store.marca = this.store.marca.replace(/[']+/g, '');
     console.log('body', this.store);
 
     if (this.editar) {
@@ -86,6 +87,8 @@ export class SucursalComponent implements OnInit {
 
   limpiar() {
     this.store = new StoreModel();
+    this.store.marcaId = this.sucursal.marcaId;
+
   }
 
 
@@ -96,6 +99,45 @@ export class SucursalComponent implements OnInit {
   }
 
 
+  cambiarEstado(tipo, valor){
+    let newValor = valor;
+    if (valor === 1){
+      newValor = 0;
+    } else{
+      newValor = 1
+    };
+
+    console.log('objeto', tipo);
+    console.log('valor', valor);
+    switch (tipo) {
+      case 'status': 
+        this.store.status = newValor;
+        break;
+      case 'delivery': 
+        this.store.delivery = newValor;
+        break;
+      case 'delivery': 
+        this.store.pickup = newValor;
+        break;
+      case 'efectivo': 
+        this.store.efectivo = newValor;
+        break;
+      case 'redcompra': 
+        this.store.redcompra = newValor;
+        break;
+      case 'webpay': 
+        this.store.webpay = newValor;
+        break;
+      case 'mercadopago': 
+        this.store.mercadopago = newValor;
+        break;
+      case 'logistics': 
+        this.store.logistics = newValor;
+        break;
+
+    }
+
+  }
 
 
 

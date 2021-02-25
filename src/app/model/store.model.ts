@@ -15,10 +15,12 @@ export class StoreModel {
         marca: string;
         transbankId: number;
         minTotal: number;
+        delivery: number;
+        pickup: number;
 
     constructor() {
         this.id = 0;
-        this.marca = '';
+        this.marcaId = 0;
         this.sucursalID = '';
         this.logistics = 0;
         this.status = 1;
@@ -28,6 +30,9 @@ export class StoreModel {
         this.mercadopago = 0;
         this.transbankId = 0;
         this.minTotal =  0;
+        this.poligonos = '';
+        this.delivery = 0;
+        this.pickup = 1;
     }
 }
 

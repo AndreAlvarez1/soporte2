@@ -8,24 +8,33 @@ import { Router } from '@angular/router';
 export class AppetitoService {
 
 
-  // public url = 'http://appetito.clubgournet.cl';
-  // public port = 8080;
+
 
   // Local
-  public url = 'http://localhost';
-  public port = 3062;
+  // public url = 'http://localhost';
+  // public port = 3062;
 
+  // Web
+  public url = 'https://appetito-aa531.ue.r.appspot.com';
+  public port = 3070;
 
   constructor(private http: HttpClient,
               private router: Router) { }
 
 
+  // traeDatos( ruta ) {
+  //               return this.http.get( this.url + ':' + this.port + ruta );
+  // }
+
+  // guardarDato(ruta, body) {
+  //   return this.http.post( this.url + ':' + this.port + ruta , body );
+  // }
+
   traeDatos( ruta ) {
-                return this.http.get( this.url + ':' + this.port + ruta );
+                return this.http.get( this.url  + ruta );
   }
 
   guardarDato(ruta, body) {
     return this.http.post( this.url + ':' + this.port + ruta , body );
-
   }
 }
